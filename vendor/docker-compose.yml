@@ -10,13 +10,13 @@ services:
     ports:
       - "13306:3306"
 
-  vendor-app:
+  vendor-service:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: vendor-app
+    container_name: vendor-service
     ports:
-      - "9101:8080"
+      - "9101:9101"
     depends_on:
       - vendor-db
     environment:

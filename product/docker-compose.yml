@@ -10,13 +10,13 @@ services:
     ports:
       - "23306:3306"
 
-  product-app:
+  product-service:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: product-app
+    container_name: product-service
     ports:
-      - "9201:8080"
+      - "9201:9201"
     depends_on:
       - product-db
     environment:

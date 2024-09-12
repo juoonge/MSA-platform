@@ -14,3 +14,10 @@ spring:
         show_sql: true
         format_sql: true
         highlight_sql: true
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-service:19090/eureka/
