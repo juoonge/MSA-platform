@@ -30,4 +30,10 @@ public class ProductController {
         return ApiResponse.success("상품 삭제", null);
     }
 
+    @PatchMapping("/api/products/{productId}")
+    public ApiResponse changeProductStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.changeProductStock(productId, request.getAmount());
+        return ApiResponse.success("상품 재고 변경", null);
+    }
+
 }

@@ -30,4 +30,10 @@ public class ProductService {
         product.remove();
     }
 
+    @Transactional
+    public void changeProductStock(UUID productId, Long amount) {
+        Product product = productReader.getProduct(productId);
+        product.changeStock(amount);
+    }
+
 }
