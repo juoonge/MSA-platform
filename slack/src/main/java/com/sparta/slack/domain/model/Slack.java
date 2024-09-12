@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,9 +24,8 @@ public class Slack extends BaseEntity{
     @Column(name="slack_id")
     private UUID id;
 
-    @Column(name="slack_receiver_id", nullable = false)
-    //@OneToOne(mappedBy = "user_slack_id")
-    private UUID receiver_id;
+    @Column(nullable=false)
+    private String receiver_id;
 
     @Column(name="slack_message", nullable = false)
     private String message;
