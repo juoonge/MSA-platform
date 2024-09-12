@@ -31,4 +31,10 @@ public class VendorService {
         vendor.withdraw();
     }
 
+    @Transactional
+    public void changeBelongingHub(UUID vendorId, UUID belongingHubId) {
+        Vendor vendor = vendorReader.getVendor(vendorId);
+        vendor.changeBelongingHub(belongingHubId);
+    }
+
 }
