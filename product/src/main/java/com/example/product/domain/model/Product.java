@@ -32,4 +32,8 @@ public class Product extends BaseEntity {
     public void remove() {
         super.delete();
     }
+
+    public void changeStock(Long amount) {
+        this.stock = this.stock + amount;
+    }
 }
