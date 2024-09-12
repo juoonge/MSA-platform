@@ -36,4 +36,17 @@ public class ProductController {
         return ApiResponse.success("상품 재고 변경", null);
     }
 
+    @GetMapping("/api/products/{productId}")
+    public ApiResponse<RetrieveProductRes> retrieveProduct(@PathVariable("productId") UUID productId) {
+        ProductInfo info = productService.retrieveProduct(productId);
+        return ApiResponse.success("상품 단건 조회", RetrieveProductRes.of(info));
+    }
+
+    @GetMapping("/api/products")
+    public ApiResponse<List<RetrieveProductRes>> retrieveProductList(Pageable page) {
+        List<ProductInfo> productInfoList = productService.retrieveProductList(page);
+        List<RetrieveProductRes> res = productInfoList.stream().map(RetrieveProductRes::of).toList();
+        return ApiResponse.success("상품 목록 조회", res);
+    }
+
 }

@@ -36,4 +36,17 @@ public class ProductService {
         product.changeStock(amount);
     }
 
+    @Transactional(readOnly = true)
+    public ProductInfo retrieveProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        return ProductInfo.of(product);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProductInfo> retrieveProductList(Pageable page) {
+        List<Product> productList = productReader.findProduct(page);
+        List<ProductInfo> productInfoList = productList.stream().map(ProductInfo::of).toList();
+        return productInfoList;
+    }
+
 }
