@@ -27,6 +27,12 @@ public enum ErrorCase {
     LOGIN_REQUIRED(HttpStatus.UNAUTHORIZED, 2001, "로그인이 필요합니다."),
     //중복된 email 400
     DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST,2002, "중복된 Email 입니다."),
+
+
+    /* 허브 3000번대 */
+
+    // 허브 경로를 찾을 수 없음 404
+    HUB_PATH_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "허브 경로를 찾을 수 없습니다.")
     ;
 
     private final HttpStatus httpStatus; // 응답 상태 코드
