@@ -5,8 +5,10 @@ import com.example.vendor.api.request.*;
 import com.example.vendor.api.response.*;
 import com.example.vendor.app.dto.VendorDto.*;
 import com.example.vendor.app.service.*;
+import com.example.vendor.domain.model.*;
 import lombok.*;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -23,5 +25,9 @@ public class VendorController {
         return ApiResponse.success("업체 등록", new RegisterVendorRes(info.getId()));
     }
 
-
+    @DeleteMapping("/api/vendors/{vendorId}")
+    public ApiResponse withdrawVendor(@PathVariable("vendorId") UUID vendorId) {
+        vendorService.withdrawVendor(vendorId);
+        return ApiResponse.success("업체 탈퇴", null);
+    }
 }

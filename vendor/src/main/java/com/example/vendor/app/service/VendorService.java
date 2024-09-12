@@ -25,4 +25,10 @@ public class VendorService {
         return VendorInfo.of(vendor);
     }
 
+    @Transactional
+    public void withdrawVendor(UUID vendorId) {
+        Vendor vendor = vendorReader.getVendor(vendorId);
+        vendor.withdraw();
+    }
+
 }

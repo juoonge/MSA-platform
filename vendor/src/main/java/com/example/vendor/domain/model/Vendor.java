@@ -36,4 +36,8 @@ public class Vendor extends BaseEntity {
     public void changeBelongingHub(UUID belongingHubId) {
         this.belongingHubId = belongingHubId;
     }
+
+    public void withdraw() {
+        super.delete();
+    }
 }
