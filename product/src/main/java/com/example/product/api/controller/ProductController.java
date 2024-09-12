@@ -24,4 +24,10 @@ public class ProductController {
         return ApiResponse.success("상품 등록", RegisterProductRes.of(productInfo));
     }
 
+    @DeleteMapping("/api/products/{productId}")
+    public ApiResponse removeProduct(@PathVariable("productId") UUID productId) {
+        productService.removeProduct(productId);
+        return ApiResponse.success("상품 삭제", null);
+    }
+
 }

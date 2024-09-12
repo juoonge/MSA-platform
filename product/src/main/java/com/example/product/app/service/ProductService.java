@@ -24,4 +24,10 @@ public class ProductService {
         return ProductInfo.of(product);
     }
 
+    @Transactional
+    public void removeProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        product.remove();
+    }
+
 }

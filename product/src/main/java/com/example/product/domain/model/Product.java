@@ -28,4 +28,8 @@ public class Product extends BaseEntity {
         this.producerVendorId = producerVendorId;
         this.belongingHubId = belongingHubId;
     }
+
+    public void remove() {
+        super.delete();
+    }
 }
