@@ -1,0 +1,27 @@
+POST http://localhost:9201/api/products
+Content-Type: application/json
+
+{
+  "name": "product A",
+  "stock": 10,
+  "producerVendorId": "123e4567-e89b-12d3-a456-426614174000",
+  "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+
+###
+DELETE  http://localhost:9201/api/products/b29fa056-bc31-4613-858e-1746362e27cc
+
+###
+PATCH http://localhost:9201/api/products/46fb5fa0-6929-4d68-90b6-ecd7f18a582a
+Content-Type: application/json
+
+{
+  "amount": 3
+}
+
+###
+GET http://localhost:9201/api/products/46fb5fa0-6929-4d68-90b6-ecd7f18a582a
+
+###
+GET http://localhost:9201/api/products
