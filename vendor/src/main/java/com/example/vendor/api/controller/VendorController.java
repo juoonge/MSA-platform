@@ -36,4 +36,17 @@ public class VendorController {
         vendorService.changeBelongingHub(vendorId, request.getBelongingHubId());
         return ApiResponse.success("소속 허브 변경", null);
     }
+
+    @GetMapping("/api/vendors/{vendorId}")
+    public ApiResponse<RetrieveVendorRes> retrieveVendor(@PathVariable("vendorId") UUID vendorId) {
+        VendorInfo info = vendorService.retrieveVendor(vendorId);
+        return ApiResponse.success("업체 단건 조회", RetrieveVendorRes.of(info));
+    }
+
+    @GetMapping("/api/vendors")
+    public ApiResponse<List<RetrieveVendorRes>> retrieveVendorList(Pageable page) {
+        List<VendorInfo> infoList = vendorService.retrieveVendorList(page);
+        List<RetrieveVendorRes> res = infoList.stream().map(RetrieveVendorRes::of).toList();
+        return ApiResponse.success("업체 단건 조회", res);
+    }
 }
