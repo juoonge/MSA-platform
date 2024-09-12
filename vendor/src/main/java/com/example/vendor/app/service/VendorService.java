@@ -37,4 +37,17 @@ public class VendorService {
         vendor.changeBelongingHub(belongingHubId);
     }
 
+    @Transactional(readOnly = true)
+    public VendorInfo retrieveVendor(UUID vendorId) {
+        Vendor vendor = vendorReader.getVendor(vendorId);
+        return VendorInfo.of(vendor);
+    }
+
+    @Transactional(readOnly = true)
+    public List<VendorInfo> retrieveVendorList(Pageable page) {
+        List<Vendor> vendorList = vendorReader.findVendor(page);
+        List<VendorInfo> vendorInfoList = vendorList.stream().map(VendorInfo::of).toList();
+        return vendorInfoList;
+    }
+
 }
