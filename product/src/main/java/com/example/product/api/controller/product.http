@@ -1,0 +1,10 @@
+POST http://localhost:9201/api/products
+Content-Type: application/json
+
+{
+  "name": "product A",
+  "stock": 10,
+  "producerVendorId": "123e4567-e89b-12d3-a456-426614174000",
+  "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
