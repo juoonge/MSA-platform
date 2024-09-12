@@ -1,0 +1,12 @@
+###
+POST http://localhost:9101/api/vendors
+Content-Type: application/json
+
+{
+  "name": "vendor name",
+  "vendorType": "CONSUMER",
+  "address": "vendor address",
+  "vendorManagerUserId": "123e4567-e89b-12d3-a456-426614174000",
+  "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
