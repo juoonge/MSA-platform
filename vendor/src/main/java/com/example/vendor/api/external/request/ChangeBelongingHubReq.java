@@ -1,4 +1,4 @@
-package com.example.vendor.api.request;
+package com.example.vendor.api.external.request;
 
 import lombok.*;
 

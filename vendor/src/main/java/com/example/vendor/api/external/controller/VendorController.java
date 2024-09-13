@@ -1,14 +1,12 @@
-package com.example.vendor.api.controller;
+package com.example.vendor.api.external.controller;
 
 import com.example.vendor._common.*;
-import com.example.vendor.api.request.*;
-import com.example.vendor.api.response.*;
+import com.example.vendor.api.external.request.*;
+import com.example.vendor.api.external.response.*;
 import com.example.vendor.app.dto.VendorDto.*;
 import com.example.vendor.app.service.*;
-import com.example.vendor.domain.model.*;
 import lombok.*;
 import org.springframework.data.domain.*;
-import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
