@@ -9,10 +9,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:19300/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
+DELETE http://localhost:8080/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
 
 ###
-GET http://localhost:19300/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
+GET http://localhost:8080/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
 
 ###
-GET http://localhost:19300/api/orders
+GET http://localhost:8080/api/orders
