@@ -1,6 +1,5 @@
 package com.sparta.hub_service.domain.entity;
 
-import com.sparta.hub_service.common.TimeStamped;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
