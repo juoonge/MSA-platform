@@ -1,0 +1,39 @@
+POST http://localhost:19200/api/products
+Content-Type: application/json
+
+{
+  "name": "product A",
+  "stock": 15,
+  "producerVendorId": "5dc8a45c-a201-4e8b-be5f-8dbe623c046d",
+  "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
+}
+
+
+###
+DELETE  http://localhost:19200/api/products/b29fa056-bc31-4613-858e-1746362e27cc
+
+###
+PATCH http://localhost:19200/api/products/e02b72ab-6214-44bd-a040-31560889a607/stock
+Content-Type: application/json
+
+{
+  "amount": 3
+}
+
+###
+GET http://localhost:19200/api/products/2eefcc1e-9ad0-495c-8479-ebea7e2a6869
+
+###
+GET http://localhost:19200/api/products
+
+###
+GET http://localhost:19200/api/internal/products/8430181c-5ad3-4322-a3c6-0edfbbf20ebd
+
+###
+###
+PATCH http://localhost:19200/api/internal/products/4597b30b-a4e3-4946-9349-d9e2c8c16ecc/stock
+Content-Type: application/json
+
+{
+  "amount": -30
+}

@@ -9,6 +9,4 @@ public interface VendorReader {
     Vendor getVendor(UUID vendorId);
 
     List<Vendor> findVendor(Pageable page);
-
-    Boolean exists(UUID vendorId);
 }

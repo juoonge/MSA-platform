@@ -10,6 +10,8 @@ public class VendorDto {
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class VendorInfo {
 
         private UUID id;

@@ -1,4 +1,4 @@
-package com.example.product.api.response;
+package com.example.product.api.external.response;
 
 import com.example.product.app.dto.ProductDto.*;
 import lombok.*;

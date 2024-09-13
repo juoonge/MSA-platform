@@ -1,5 +1,5 @@
 ###
-POST http://localhost:9101/api/vendors
+POST http://localhost:19100/api/vendors
 Content-Type: application/json
 
 {
@@ -11,10 +11,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:9101/api/vendors/4978eda2-0e86-4a16-b64b-0015d02142c2
+DELETE http://localhost:19100/api/vendors/4978eda2-0e86-4a16-b64b-0015d02142c2
 
 ###
-GET http://localhost:9101/api/vendors/4978eda2-0e86-4a16-b64b-0015d02142c2
+GET http://localhost:19100/api/vendors/4978eda2-0e86-4a16-b64b-0015d02142c2
 
 ###
-GET http://localhost:9101/api/vendors
+GET http://localhost:19100/api/vendors

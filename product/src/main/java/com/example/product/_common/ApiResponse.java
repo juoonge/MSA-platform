@@ -3,9 +3,13 @@ package com.example.product._common;
 import lombok.*;
 import org.springframework.http.*;
 
+import java.io.*;
+
 @Getter
 @Builder
-public class ApiResponse<T> {
+@AllArgsConstructor
+@NoArgsConstructor
+public class ApiResponse<T> implements Serializable {
 
     private int statusCode;
     private String status;

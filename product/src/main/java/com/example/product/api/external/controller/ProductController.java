@@ -1,8 +1,8 @@
-package com.example.product.api.controller;
+package com.example.product.api.external.controller;
 
 import com.example.product._common.*;
-import com.example.product.api.request.*;
-import com.example.product.api.response.*;
+import com.example.product.api.external.request.*;
+import com.example.product.api.external.response.*;
 import com.example.product.app.dto.ProductDto.*;
 import com.example.product.app.service.*;
 import lombok.*;
@@ -30,9 +30,9 @@ public class ProductController {
         return ApiResponse.success("상품 삭제", null);
     }
 
-    @PatchMapping("/api/products/{productId}")
-    public ApiResponse changeProductStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
-        productService.changeProductStock(productId, request.getAmount());
+    @PatchMapping("/api/products/{productId}/stock")
+    public ApiResponse changeStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.changeStock(productId, request.getAmount());
         return ApiResponse.success("상품 재고 변경", null);
     }
 

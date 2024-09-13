@@ -7,8 +7,8 @@ import java.io.*;
 import java.util.*;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class RegisterVendorRes implements Serializable {
 
     private UUID vendorId;

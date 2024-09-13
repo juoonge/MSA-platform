@@ -1,5 +1,6 @@
-package com.example.product._client.vendor;
+package com.example.product._client.fallback;
 
+import com.example.product._client.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 public class VendorFallback implements VendorFeignClient {
 
     @Override
-    public Boolean exists(UUID vendorId) {
+    public VendorInfo getVendor(UUID vendorId) {
         return null;
     }
 

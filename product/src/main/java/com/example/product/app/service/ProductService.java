@@ -1,6 +1,6 @@
 package com.example.product.app.service;
 
-import com.example.product._client.vendor.*;
+import com.example.product._client.*;
 import com.example.product._common.*;
 import com.example.product.app.dto.ProductDto.*;
 import com.example.product.domain.model.*;
@@ -22,10 +22,8 @@ public class ProductService {
 
     @Transactional
     public ProductInfo registerProduct(RegisterProductCommand command) {
-        Boolean existsVendor = vendorFeignClient.exists(command.getProducerVendorId());
-        if (existsVendor == null) {
-            throw new ApiException("VENDOR SERVICE ERROR");
-        } else if (!existsVendor) {
+        VendorInfo vendor = vendorFeignClient.getVendor(command.getProducerVendorId());
+        if (vendor == null) {
             throw new ApiException("NOT FOUND VENDOR");
         }
         Product intitProduct = command.toEntity();
@@ -40,9 +38,12 @@ public class ProductService {
     }
 
     @Transactional
-    public void changeProductStock(UUID productId, Long amount) {
+    public void changeStock(UUID productId, Long amount) {
         Product product = productReader.getProduct(productId);
-        product.changeStock(amount);
+        Long stock = product.changeStock(amount);
+        if (stock < 0) {
+            throw new ApiException("NOT ENOUGH STOCK");
+        }
     }
 
     @Transactional(readOnly = true)
@@ -58,4 +59,9 @@ public class ProductService {
         return productInfoList;
     }
 
+    @Transactional
+    public ProductInfo getProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        return ProductInfo.of(product);
+    }
 }

@@ -50,7 +50,9 @@ public class VendorService {
         return vendorInfoList;
     }
 
-    public Boolean exists(UUID vendorId) {
-        return vendorReader.exists(vendorId);
+    @Transactional
+    public VendorInfo getVendor(UUID vendorId) {
+        Vendor vendor = vendorReader.getVendor(vendorId);
+        return VendorInfo.of(vendor);
     }
 }

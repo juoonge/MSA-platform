@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://product-db:3306/sparta-vendor
-    username: panjun
-    password: 0709
+    url: jdbc:mysql://product-db:3306/sparta-product
+    username: product
+    password: 9999
 
   jpa:
     hibernate:
@@ -20,4 +20,4 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://eureka-service:19090/eureka/
+      defaultZone: http://eureka-service:8761/eureka/
