@@ -1,4 +1,4 @@
-package com.sparta.delivery_service.application.dto;
+package com.sparta.delivery_service.application.dto.deliverydto;
 
 import com.sparta.delivery_service.domain.enums.DeliveryStatus;
 import java.util.UUID;
@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class DeliveryStatusDto {
+
     private UUID deliveryId;
     private DeliveryStatus deliveryStatus;
 

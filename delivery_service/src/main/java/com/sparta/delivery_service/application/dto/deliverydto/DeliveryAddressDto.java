@@ -1,13 +1,14 @@
-package com.sparta.delivery_service.application.dto;
+package com.sparta.delivery_service.application.dto.deliverydto;
 
 import com.sparta.delivery_service.domain.entity.Delivery;
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
-import java.util.UUID;
 
 @Getter
 @Builder
 public class DeliveryAddressDto {
+
     private UUID deliveryId;
     private String address;
 

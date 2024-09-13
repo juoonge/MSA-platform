@@ -1,9 +1,9 @@
 package com.sparta.delivery_service.application.service;
 
-import com.sparta.delivery_service.application.dto.DeliveryAddressDto;
-import com.sparta.delivery_service.application.dto.DeliveryDTO;
-import com.sparta.delivery_service.application.dto.DeliveryStatusDto;
-import com.sparta.delivery_service.application.dto.DeliveryUpdateRequest;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryAddressDto;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryDTO;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryStatusDto;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
 import com.sparta.delivery_service.application.mapper.DeliveryMapper;
 import com.sparta.delivery_service.common.exception.ErrorCase;
 import com.sparta.delivery_service.common.exception.GlobalException;
@@ -33,17 +33,18 @@ public class DeliveryService {
 
     @Transactional
     public DeliveryDTO updateDelivery(UUID deliveryId, DeliveryUpdateRequest request) {
-        Delivery delivery = deliveryRepository.findById(deliveryId)
+        Delivery delivery = deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
 
         delivery.updateDelivery(request);
 
         Delivery updatedDelivery = deliveryRepository.save(delivery);
         return deliveryMapper.toDto(updatedDelivery);
+
     }
 
     public DeliveryStatusDto updateDeliveryStatus(UUID deliveryId, DeliveryStatus deliveryStatus) {
-        Delivery delivery = deliveryRepository.findById(deliveryId)
+        Delivery delivery = deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
 
         delivery.updateDeliveryStatus(deliveryStatus);
@@ -54,7 +55,7 @@ public class DeliveryService {
     }
 
     public DeliveryAddressDto updateDeliveryAddress(UUID deliveryId, String address) {
-        Delivery delivery = deliveryRepository.findById(deliveryId)
+        Delivery delivery = deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
 
         delivery.updateDeliveryAddress(address);
@@ -65,7 +66,7 @@ public class DeliveryService {
 
     @Transactional
     public void deleteDelivery(UUID deliveryId) {
-        Delivery delivery = deliveryRepository.findById(deliveryId)
+        Delivery delivery = deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
 
         delivery.deleteDelivery();
@@ -74,7 +75,7 @@ public class DeliveryService {
 
     @Transactional(readOnly = true)
     public Delivery getDeliveryById(UUID deliveryId) {
-        return deliveryRepository.findById(deliveryId)
+        return deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
     }
 

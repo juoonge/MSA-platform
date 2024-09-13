@@ -1,12 +1,12 @@
 package com.sparta.delivery_service.presentation;
 
-import com.sparta.delivery_service.application.dto.DeliveryAddressDto;
-import com.sparta.delivery_service.application.dto.DeliveryAddressUpdateRequest;
-import com.sparta.delivery_service.application.dto.DeliveryDTO;
-import com.sparta.delivery_service.application.dto.DeliveryRes;
-import com.sparta.delivery_service.application.dto.DeliveryStatusDto;
-import com.sparta.delivery_service.application.dto.DeliveryStatusUpdateRequest;
-import com.sparta.delivery_service.application.dto.DeliveryUpdateRequest;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryAddressDto;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryAddressUpdateRequest;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryDTO;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryRes;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryStatusDto;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryStatusUpdateRequest;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
 import com.sparta.delivery_service.application.service.DeliveryService;
 import com.sparta.delivery_service.common.response.CommonResponse;
 import com.sparta.delivery_service.domain.entity.Delivery;
@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,14 +41,14 @@ public class DeliveryController {
     public ResponseEntity<CommonResponse<DeliveryRes>> createDelivery(
         @RequestBody @Valid DeliveryDTO deliveryDto) {
         Delivery delivery = deliveryService.createDelivery(deliveryDto);
-        return new ResponseEntity<>(CommonResponse.success(new DeliveryRes(delivery)),
+        return new ResponseEntity<>(CommonResponse.success(DeliveryRes.of(delivery)),
             HttpStatus.CREATED);
     }
 
     @GetMapping("/{deliveryId}")
     public ResponseEntity<CommonResponse<DeliveryRes>> getDelivery(@PathVariable UUID deliveryId) {
         Delivery delivery = deliveryService.getDeliveryById(deliveryId);
-        return new ResponseEntity<>(CommonResponse.success(new DeliveryRes(delivery)),
+        return new ResponseEntity<>(CommonResponse.success(DeliveryRes.of(delivery)),
             HttpStatus.OK);
     }
 

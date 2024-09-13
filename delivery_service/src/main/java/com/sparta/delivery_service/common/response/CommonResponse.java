@@ -15,7 +15,9 @@ import lombok.NoArgsConstructor;
 public class CommonResponse<T> implements Serializable {
 
     //@Schema(description = "응답 코드", example = "0")
-    private Integer code; // 커스텀 응답 코드
+    private Integer StatusCode; // 커스텀 응답 코드
+
+    private String status;
     //@Schema(description = "응답 메시지", example = "정상 처리 되었습니다.")
     private String message; // 응답에 대한 설명
     //@Schema(description = "응답 데이터", example = "{}")
@@ -37,7 +39,8 @@ public class CommonResponse<T> implements Serializable {
 
     private static <T> CommonResponse<T> getSuccessRes(T data) {
         return CommonResponse.<T>builder()
-            .code(0)
+            .StatusCode(200)
+            .status("success")
             .message("정상 처리 되었습니다.")
             .data(data)
             .build();
@@ -49,7 +52,8 @@ public class CommonResponse<T> implements Serializable {
     public static CommonResponse<CommonEmptyRes> error(ErrorCase errorCase) {
 
         return CommonResponse.<CommonEmptyRes>builder()
-            .code(errorCase.getCode())
+            .StatusCode(errorCase.getCode())
+            .status("error")
             .message(errorCase.getMessage())
             .data(new CommonEmptyRes())
             .build();
@@ -60,7 +64,8 @@ public class CommonResponse<T> implements Serializable {
      */
     public static <T> CommonResponse<T> error(ErrorCase errorCase, T data) {
         return CommonResponse.<T>builder()
-            .code(errorCase.getCode())
+            .StatusCode(errorCase.getCode())
+            .status("error")
             .message(errorCase.getMessage())
             .data(data)
             .build();

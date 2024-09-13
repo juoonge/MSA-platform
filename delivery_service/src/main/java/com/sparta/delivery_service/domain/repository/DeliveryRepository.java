@@ -1,12 +1,13 @@
 package com.sparta.delivery_service.domain.repository;
 
 import com.sparta.delivery_service.domain.entity.Delivery;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.lang.NonNull;
-import java.util.UUID;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DeliveryRepository extends JpaRepository<Delivery, UUID> {
@@ -15,5 +16,7 @@ public interface DeliveryRepository extends JpaRepository<Delivery, UUID> {
 
     @NonNull
     Page<Delivery> findAll(@NonNull Pageable pageable);
+
+    Optional<Delivery> findByDeliveryIdAndIsDeletedFalse(@NonNull UUID deliveryId);
 }
 

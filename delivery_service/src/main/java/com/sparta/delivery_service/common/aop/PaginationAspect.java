@@ -14,7 +14,8 @@ import org.springframework.stereotype.Component;
 public class PaginationAspect {
 
     @Around("execution(* com.sparta.delivery_service.application.service..*(..)) && args(pageable,..)")
-    public Object applyPagination(ProceedingJoinPoint joinPoint, Pageable pageable) throws Throwable {
+    public Object applyPagination(ProceedingJoinPoint joinPoint, Pageable pageable)
+        throws Throwable {
         // 페이지 크기 제한 (10, 30, 50 이외의 값이 오면 기본값 10으로 설정)
         int pageSize = pageable.getPageSize();
         if (pageSize != 10 && pageSize != 30 && pageSize != 50) {

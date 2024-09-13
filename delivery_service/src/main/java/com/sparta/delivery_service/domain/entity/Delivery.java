@@ -1,27 +1,22 @@
 package com.sparta.delivery_service.domain.entity;
 
-import com.sparta.delivery_service.application.dto.DeliveryDTO;
-import com.sparta.delivery_service.application.dto.DeliveryUpdateRequest;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryDTO;
+import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
 import com.sparta.delivery_service.domain.enums.DeliveryStatus;
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "deliveries")
@@ -54,10 +49,10 @@ public class Delivery extends TimeStamped implements Serializable {
     @Column
     private String address;
 
-    @ElementCollection
-    @CollectionTable(name = "delivery_paths", joinColumns = @JoinColumn(name = "delivery_id"))
-    @Column(name = "hub_path_id")
-    private List<UUID> deliveryPaths;
+//    @ElementCollection
+//    @CollectionTable(name = "delivery_paths", joinColumns = @JoinColumn(name = "delivery_id"))
+//    @Column(name = "hub_path_id")
+//    private List<UUID> deliveryPaths;
 
 
     public static Delivery createDelivery(DeliveryDTO deliveryDto) {

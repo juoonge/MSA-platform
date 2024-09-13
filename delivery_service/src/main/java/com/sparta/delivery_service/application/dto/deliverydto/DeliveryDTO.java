@@ -1,4 +1,4 @@
-package com.sparta.delivery_service.application.dto;
+package com.sparta.delivery_service.application.dto.deliverydto;
 
 import java.util.UUID;
 import lombok.Data;

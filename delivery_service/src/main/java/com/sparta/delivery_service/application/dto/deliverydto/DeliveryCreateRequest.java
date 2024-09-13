@@ -1,11 +1,12 @@
-package com.sparta.delivery_service.application.dto;
+package com.sparta.delivery_service.application.dto.deliverydto;
 
 import java.util.List;
-import lombok.Getter;
 import java.util.UUID;
+import lombok.Getter;
 
 @Getter
 public class DeliveryCreateRequest {
+
     private UUID orderId;
     private UUID vendorId;
     private UUID startHubId;
