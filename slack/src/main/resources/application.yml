@@ -1,6 +1,6 @@
 spring:
   application:
-    name: auth-service
+    name: slack-service
   data:
     redis:
       host: localhost
@@ -18,7 +18,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 19400
+  port: 19500
 
 jwt:
   secret:

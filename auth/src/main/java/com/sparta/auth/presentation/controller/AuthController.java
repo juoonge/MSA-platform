@@ -1,4 +1,4 @@
-package com.sparta.auth.controller;
+package com.sparta.auth.presentation.controller;
 
 import com.sparta.auth.application.dto.SignUpRequestDto;
 import com.sparta.auth.application.dto.UserResponse;
@@ -61,6 +61,7 @@ public class AuthController {
     }
 
     // 사용자 검색
+    @GetMapping("/search")
     public ResponseEntity<?> searchUsers(
             @RequestParam(defaultValue="0") int pageNumber,
             @RequestParam(defaultValue="10") int size,
@@ -76,8 +77,4 @@ public class AuthController {
         );
         return ResponseEntity.ok(new ApiResponse(200,"success","사용자 검색 성공",users));
     }
-
-
-
-
 }
