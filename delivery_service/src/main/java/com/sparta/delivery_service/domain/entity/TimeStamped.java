@@ -1,4 +1,4 @@
-package com.sparta.hub_service.common;
+package com.sparta.delivery_service.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
