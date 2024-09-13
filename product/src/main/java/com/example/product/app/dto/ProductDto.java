@@ -7,6 +7,7 @@ import java.util.*;
 
 public class ProductDto {
 
+    @Getter
     @Builder
     public static class RegisterProductCommand {
 

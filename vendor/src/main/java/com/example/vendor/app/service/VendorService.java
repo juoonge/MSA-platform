@@ -50,4 +50,7 @@ public class VendorService {
         return vendorInfoList;
     }
 
+    public Boolean exists(UUID vendorId) {
+        return vendorReader.exists(vendorId);
+    }
 }

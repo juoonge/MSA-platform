@@ -2,6 +2,7 @@ package com.example.product._common;
 
 import lombok.*;
 
+@Getter
 @AllArgsConstructor
 public class ApiException extends RuntimeException {
 
