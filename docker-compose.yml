@@ -17,8 +17,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: sparta-vendor
-      MYSQL_USER: panjun
-      MYSQL_PASSWORD: 0709
+      MYSQL_USER: vendor
+      MYSQL_PASSWORD: 9999
     ports:
       - "13306:3306"
     networks:
@@ -36,8 +36,8 @@ services:
       - vendor-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://vendor-db:3306/sparta-vendor
-      SPRING_DATASOURCE_USERNAME: panjun
-      SPRING_DATASOURCE_PASSWORD: 0709
+      SPRING_DATASOURCE_USERNAME: vendor
+      SPRING_DATASOURCE_PASSWORD: 9999
     restart: always
     networks:
       - msa-network
@@ -50,8 +50,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: sparta-product
-      MYSQL_USER: panjun
-      MYSQL_PASSWORD: 0709
+      MYSQL_USER: product
+      MYSQL_PASSWORD: 9999
     ports:
       - "23306:3306"
     networks:
@@ -69,8 +69,8 @@ services:
       - product-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://product-db:3306/sparta-product
-      SPRING_DATASOURCE_USERNAME: panjun
-      SPRING_DATASOURCE_PASSWORD: 0709
+      SPRING_DATASOURCE_USERNAME: product
+      SPRING_DATASOURCE_PASSWORD: 9999
     restart: always
     networks:
       - msa-network
@@ -83,8 +83,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: sparta-order
-      MYSQL_USER: panjun
-      MYSQL_PASSWORD: 0709
+      MYSQL_USER: order
+      MYSQL_PASSWORD: 9999
     ports:
       - "33306:3306"
     networks:
@@ -102,12 +102,21 @@ services:
       - order-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://order-db:3306/sparta-order
-      SPRING_DATASOURCE_USERNAME: panjun
-      SPRING_DATASOURCE_PASSWORD: 0709
+      SPRING_DATASOURCE_USERNAME: order
+      SPRING_DATASOURCE_PASSWORD: 9999
     restart: always
     networks:
       - msa-network
       - order-network
+
+# redis
+  redis-server:
+    image: redis:latest
+    container_name: redis-server
+    ports:
+      - "6379:6379"
+    networks:
+      - "msa-network"
 
 # network
 networks:

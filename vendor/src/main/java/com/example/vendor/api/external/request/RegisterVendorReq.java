@@ -1,4 +1,4 @@
-package com.example.vendor.api.request;
+package com.example.vendor.api.external.request;
 
 import com.example.vendor.app.dto.VendorDto.*;
 import com.example.vendor.domain.vo.*;

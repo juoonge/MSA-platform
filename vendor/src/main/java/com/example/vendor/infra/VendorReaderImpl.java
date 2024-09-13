@@ -28,4 +28,9 @@ public class VendorReaderImpl implements VendorReader {
         return vendorRepository.findAll(page).getContent();
     }
 
+    @Override
+    public Boolean exists(UUID vendorId) {
+        return vendorRepository.existsById(vendorId);
+    }
+
 }

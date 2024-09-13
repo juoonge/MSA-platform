@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "name": "product A",
   "stock": 10,
-  "producerVendorId": "123e4567-e89b-12d3-a456-426614174000",
+  "producerVendorId": "2ccccbd6-a3af-4bac-9988-54010de0f8a5",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
