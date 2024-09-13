@@ -32,7 +32,7 @@ public class HubService {
      * 허브 단건 조회
      */
     public HubDTO getHub(UUID hubId) {
-        Hub hub = hubRepository.findById(hubId)
+        Hub hub = hubRepository.findByHubIdAndIsDeletedFalse(hubId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));  // 허브가 없으면 예외 발생
         return hubMapper.toDto(hub);  // 엔티티를 DTO로 변환
     }
@@ -41,7 +41,7 @@ public class HubService {
      * 허브 목록 조회
      */
     public List<HubDTO> getAllHubs() {
-        List<Hub> hubs = hubRepository.findAll();  // 모든 허브 조회
+        List<Hub> hubs = hubRepository.findAllByIsDeletedFalse();  // 모든 허브 조회
         return hubs.stream()
             .map(hubMapper::toDto)  // 각 허브 엔티티를 DTO로 변환
             .collect(Collectors.toList());
@@ -53,7 +53,7 @@ public class HubService {
      * existingHub.setVendorDeliveryManagerIds(hubDTO.getVendorDeliveryManagerIds()); 추가하기
      */
     public void updateHub(UUID hubId, HubDTO hubDTO) {
-        Hub existingHub = hubRepository.findById(hubId)
+        Hub existingHub = hubRepository.findByHubIdAndIsDeletedFalse(hubId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));  // 허브가 없으면 예외 발생
 
         // 수정된 정보로 허브 업데이트
@@ -66,7 +66,7 @@ public class HubService {
      * 허브 삭제
      */
     public void deleteHub(UUID hubId) {
-        Hub hub = hubRepository.findById(hubId)
+        Hub hub = hubRepository.findByHubIdAndIsDeletedFalse(hubId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));  // 허브가 없으면 예외 발생
 
         // 허브 삭제

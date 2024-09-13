@@ -79,8 +79,9 @@ public class HubController {
      * 허브 삭제
      */
     @DeleteMapping("/{hubId}")
-    public ResponseEntity<ApiResponse> deleteHub(@PathVariable UUID hubId,
-        @RequestHeader("Authorization") String authorization) {
+    public ResponseEntity<ApiResponse> deleteHub(@PathVariable UUID hubId
+        //@RequestHeader("Authorization") String authorization
+    ) {
         hubService.deleteHub(hubId);
 
         ApiResponse response = new ApiResponse(200, "success", "허브 삭제 성공", null);

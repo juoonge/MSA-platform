@@ -42,6 +42,6 @@ public abstract class TimeStamped {
     private String deletedBy;
 
     @Column
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
 }
