@@ -8,7 +8,9 @@ import java.time.*;
 import java.util.*;
 
 @Getter
+@NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class RetrieveOrderRes implements Serializable {
 
     private UUID orderId;

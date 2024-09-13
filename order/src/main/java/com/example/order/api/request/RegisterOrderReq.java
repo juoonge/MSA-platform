@@ -13,17 +13,13 @@ public class RegisterOrderReq {
 
     private UUID orderProductId;
     private Long quantity;
-    private UUID producerVendorId;
     private UUID consumerVendorId;
-    private UUID deliveryId;
 
     public RegisterOrderCommand toCommand() {
         return RegisterOrderCommand.builder()
                 .orderProductId(this.orderProductId)
                 .quantity(this.quantity)
-                .producerVendorId(this.producerVendorId)
                 .consumerVendorId(this.consumerVendorId)
-                .deliveryId(this.deliveryId)
                 .build();
     }
 }
