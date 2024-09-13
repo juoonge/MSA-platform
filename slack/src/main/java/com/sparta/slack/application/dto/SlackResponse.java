@@ -14,7 +14,7 @@ import java.util.UUID;
 public class SlackResponse {
     private UUID slack_id;
     private String message;
-    private UUID receiver_id;
+    private String receiver_id;
     private LocalDateTime send_at;
 
     public static SlackResponse fromEntity(Slack slack){
