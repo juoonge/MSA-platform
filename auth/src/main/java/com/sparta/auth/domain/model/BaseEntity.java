@@ -38,7 +38,7 @@ public abstract class BaseEntity {
 
     @CreatedBy
     @Column(updatable = false)
-    private Integer createdBy;
+    private UUID createdBy;
 
     @LastModifiedBy
     private UUID updatedBy;

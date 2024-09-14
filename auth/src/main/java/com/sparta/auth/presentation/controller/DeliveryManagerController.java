@@ -2,6 +2,7 @@ package com.sparta.auth.presentation.controller;
 
 import com.sparta.auth.application.dto.*;
 import com.sparta.auth.application.service.DeliveryManagerService;
+import com.sparta.auth.domain.model.DeliveryManagerRole;
 import com.sparta.auth.infrastructure.configuration.ApiResponse;
 import com.sparta.auth.infrastructure.configuration.SortStandard;
 import lombok.RequiredArgsConstructor;
@@ -72,7 +73,7 @@ public class DeliveryManagerController {
             default -> 10;
         };
         Page<DeliveryManagerResponse> managers=managerService.searchManagers(
-                keyword,PageRequest.of(pageNumber,size,sort.getSort())
+                DeliveryManagerRole.valueOf(keyword),PageRequest.of(pageNumber,size,sort.getSort())
         );
         return ResponseEntity.ok(new ApiResponse(200,"success","사용자 검색 성공",managers));
     }

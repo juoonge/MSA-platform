@@ -3,8 +3,8 @@ package com.sparta.auth.application.service;
 import com.sparta.auth.application.dto.DeliveryManagerRequest;
 import com.sparta.auth.application.dto.DeliveryManagerResponse;
 import com.sparta.auth.application.dto.DeliveryManagerUpdateRequest;
-import com.sparta.auth.application.dto.UserUpdateRequest;
 import com.sparta.auth.domain.model.DeliveryManager;
+import com.sparta.auth.domain.model.DeliveryManagerRole;
 import com.sparta.auth.domain.model.User;
 import com.sparta.auth.domain.repository.DeliveryManagerRepository;
 import com.sparta.auth.domain.repository.UserRepository;
@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.UUID;
 
@@ -55,8 +54,10 @@ public class DeliveryManagerService {
         managerRepository.save(manager);
     }
 
-    public Page<DeliveryManagerResponse> searchManagers(String keyword, PageRequest pageRequest) {
-        Page<DeliveryManager> managers=managerRepository.findByNameStartingWithOrContactStartingWith(keyword, keyword, pageRequest);
+    public Page<DeliveryManagerResponse> searchManagers(DeliveryManagerRole keyword, PageRequest pageRequest) {
+        Page<DeliveryManager> managers=managerRepository.findByRoleStartingWith(
+                keyword,
+                pageRequest);
         return managers.map(DeliveryManagerResponse::fromEntity);
     }
 }

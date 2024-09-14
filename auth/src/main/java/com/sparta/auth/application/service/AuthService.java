@@ -57,7 +57,7 @@ public class AuthService {
 
     @Transactional
     public Page<UserResponse> searchUsers(String keyword, PageRequest pageRequest) {
-        Page<User> users = userRepository.findByNameStartingWithOrContactStartingWith(keyword, keyword, pageRequest);
+        Page<User> users = userRepository.findByUsernameStartingWithOrEmailStartingWith(keyword, keyword, pageRequest);
         return users.map(UserResponse::fromEntity);
     }
 }
