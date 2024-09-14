@@ -11,18 +11,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/slacks")
+@RequestMapping("/api/slacks")
 @RequiredArgsConstructor
 public class SlackController {
     private final SlackService slackService;
 
     // 슬랙 생성
     @PostMapping
+    @PreAuthorize("hasRole('MASTER')") // ROLE_MASTER
     public ResponseEntity<?> createSlack(
             @RequestBody SlackRequest request){
         slackService.createSlack(request);

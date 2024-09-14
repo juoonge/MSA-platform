@@ -7,8 +7,8 @@ spring:
       port: 6379
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: 1234
+    username: ${POSTGRE_USERNAME}
+    password: ${POSTGRE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -18,11 +18,11 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 server:
-  port: 19092
+  port: 19400
 
 jwt:
   secret:
-    key: 4f71f168511a269e154e2687b65aefb9ca8b4415a860688bcb406c22eefb7f6f9be0aa85fc5b11463b61e61f206d4d95235eb9985181dfcaf9e1d627d4c1c8c0
+    key: ${JWT_SECRET_KEY}
 
 eureka:
   client:

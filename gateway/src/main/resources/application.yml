@@ -16,11 +16,11 @@ spring:
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/auth/**
+            - Path=/api/auth/**
         - id: slack-service
           uri: lb://slack-service
           predicates:
-            - Path=/slacks/**
+            - Path=/api/slacks/**
 
 jwt:
   secret:
