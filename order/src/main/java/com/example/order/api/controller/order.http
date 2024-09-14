@@ -1,18 +1,18 @@
 ###
-POST http://localhost:8080/api/orders
+POST http://localhost:19300/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "3437f0fb-0598-4700-a1eb-3eefa644a980",
+  "orderProductId": "db6783b2-0625-427f-98e7-9a65d46b62fe",
   "quantity": 10,
-  "consumerVendorId": "15cd0544-d2ca-4ace-80d4-f047d0b7be09"
+  "consumerVendorId": "efb82282-5f7a-4a05-b4f9-1ab8ae902615"
 }
 
 ###
-DELETE http://localhost:8080/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
+DELETE http://localhost:19300/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
 
 ###
-GET http://localhost:8080/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
+GET http://localhost:19300/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
 
 ###
-GET http://localhost:8080/api/orders
+GET http://localhost:19300/api/test

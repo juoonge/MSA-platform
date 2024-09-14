@@ -1,6 +1,6 @@
 package com.example.product.app.service;
 
-import com.example.product._client.*;
+import com.example.product._client.vendor.*;
 import com.example.product._common.*;
 import com.example.product.app.dto.ProductDto.*;
 import com.example.product.domain.model.*;
@@ -18,11 +18,11 @@ public class ProductService {
 
     private final ProductReader productReader;
     private final ProductStore productStore;
-    private final VendorFeignClient vendorFeignClient;
+    private final VendorService vendorService;
 
     @Transactional
     public ProductInfo registerProduct(RegisterProductCommand command) {
-        VendorInfo vendor = vendorFeignClient.getVendor(command.getProducerVendorId());
+        VendorInfo vendor = vendorService.getVendor(command.getProducerVendorId());
         if (vendor == null) {
             throw new ApiException("NOT FOUND VENDOR");
         }

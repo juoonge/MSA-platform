@@ -18,3 +18,6 @@ GET http://localhost:19100/api/vendors/4978eda2-0e86-4a16-b64b-0015d02142c2
 
 ###
 GET http://localhost:19100/api/vendors
+
+###
+GET http://localhost:19100/api/internal/vendors/f9d44f75-e1e6-4529-bd1a-8d05609b19f5

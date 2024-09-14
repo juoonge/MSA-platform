@@ -3,7 +3,7 @@ spring:
     name: product-service
 
   profiles:
-    active: prod
+    active: dev
 
   cloud:
     openfeign:
@@ -11,9 +11,6 @@ spring:
         enabled: true
         alphanumeric-ids:
           enabled: true
-
-server:
-  port: 8080
 
 eureka:
   client:

@@ -15,9 +15,5 @@ spring:
         format_sql: true
         highlight_sql: true
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://eureka-service:8761/eureka/
+server:
+  port: 19100

@@ -3,15 +3,16 @@ package com.example.order.api.controller;
 import com.example.order._common.*;
 import com.example.order.api.request.*;
 import com.example.order.api.response.*;
-import com.example.order.app.dto.*;
 import com.example.order.app.dto.OrderDto.*;
 import com.example.order.app.service.*;
 import lombok.*;
+import lombok.extern.slf4j.*;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OrderController {

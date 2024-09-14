@@ -1,6 +1,5 @@
 package com.example.order._client.product;
 
-import com.example.order.*;
 import com.example.order._client.product.fallback.*;
 import com.example.order._client.product.request.*;
 import com.example.order._client.product.response.*;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@FeignClient(name = "product-service" , fallbackFactory = ProductFallbackFactory.class, configuration = OrderApplication.class)
+@FeignClient(name = "product-service", url = "http://localhost:19200", fallbackFactory = ProductFallbackFactory.class)
 @Primary
 public interface ProductFeignClient extends ProductService {
 

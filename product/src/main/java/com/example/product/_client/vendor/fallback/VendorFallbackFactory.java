@@ -1,6 +1,6 @@
-package com.example.product._client.fallback;
+package com.example.product._client.vendor.fallback;
 
-import com.example.product._client.*;
+import com.example.product._client.vendor.*;
 import org.springframework.cloud.openfeign.*;
 import org.springframework.stereotype.*;
 

@@ -2,7 +2,6 @@ package com.example.order;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.*;
-import feign.okhttp.*;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.cloud.client.discovery.*;
@@ -26,11 +25,6 @@ public class OrderApplication {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
         return objectMapper;
-    }
-
-    @Bean
-    public OkHttpClient client() {
-        return new OkHttpClient();
     }
 
     @Bean

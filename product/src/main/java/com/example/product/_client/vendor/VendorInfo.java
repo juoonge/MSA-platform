@@ -1,4 +1,4 @@
-package com.example.product._client;
+package com.example.product._client.vendor;
 
 import lombok.*;
 

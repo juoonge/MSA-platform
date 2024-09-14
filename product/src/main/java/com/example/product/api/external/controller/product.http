@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "name": "product A",
   "stock": 15,
-  "producerVendorId": "5dc8a45c-a201-4e8b-be5f-8dbe623c046d",
+  "producerVendorId": "efb82282-5f7a-4a05-b4f9-1ab8ae902615",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
@@ -27,9 +27,8 @@ GET http://localhost:19200/api/products/2eefcc1e-9ad0-495c-8479-ebea7e2a6869
 GET http://localhost:19200/api/products
 
 ###
-GET http://localhost:19200/api/internal/products/8430181c-5ad3-4322-a3c6-0edfbbf20ebd
+GET http://localhost:19200/api/internal/products/f2f53310-5e4a-4d75-b0e3-199bab46738b
 
-###
 ###
 PATCH http://localhost:19200/api/internal/products/4597b30b-a4e3-4946-9349-d9e2c8c16ecc/stock
 Content-Type: application/json
