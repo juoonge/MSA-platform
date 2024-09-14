@@ -20,6 +20,8 @@ import org.springframework.web.server.WebFilter;
 import reactor.core.publisher.Mono;
 
 import java.util.Base64;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Configuration
@@ -29,29 +31,24 @@ public class SecurityConfig {
     @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
     private String secretKeyString;
 
-    private final RedisService redisService;
-
-    public SecurityConfig(RedisService redisService) {
-        this.redisService = redisService;
-    }
 
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 비활성화
-                .addFilterAt(jwtAuthenticationFilter(redisService), SecurityWebFiltersOrder.HTTP_BASIC);
+                .addFilterAt(jwtAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC);
 
         return http.build();
     }
 
     @Bean
-    public WebFilter jwtAuthenticationFilter(RedisService redisService) {
+    public WebFilter jwtAuthenticationFilter() {
         // 게이트웨이 jwt 인증 처리 필터
         return (exchange, chain) -> {
 
             // /auth/login 경로는 필터를 적용하지 않음
             String path=exchange.getRequest().getURI().getPath();
-            if (path.equals("/auth/login")||path.equals("/auth/signup")) {
+            if (path.equals("/api/auth/login")||path.equals("/api/auth/signup")) {
                 return chain.filter(exchange);
             }
 
@@ -71,19 +68,22 @@ public class SecurityConfig {
                             .getBody();
 
                     String username = claims.getSubject();
+                    Collection<String> roles = claims.get("roles", Collection.class);
+                    String rolesString = roles != null ? String.join(",", roles) : "";
 
-                    var userDto =
-                            Optional.ofNullable(
-                                            redisService.getValueAsClass("user:" + username, UserDto.class)
-                                    )
-                                    .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found")
-                                    );
+//
+//                    var userDto =
+//                            Optional.ofNullable(
+//                                            redisService.getValueAsClass("user:" + username, UserDto.class)
+//                                    )
+//                                    .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found")
+//                                    );
 
 
                     // 사용자 정보를 새로운 헤더에 추가
                     ServerHttpRequest modifiedRequest = exchange.getRequest().mutate()
                             .header("X-User-Name", username)  // 사용자명 헤더 추가
-                            .header("X-User-Roles", String.valueOf(userDto.getRoles()))    // 권한 정보 헤더 추가
+                            .header("X-User-Roles", rolesString)    // 권한 정보 헤더 추가
                             .build();
 
                     // 수정된 요청으로 필터 체인 계속 처리

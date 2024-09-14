@@ -1,6 +1,6 @@
 package com.sparta.slack.application.dto;
 
-import com.sparta.slack.domain.model.Slack;
+import com.sparta.slack.domain.model.SlackEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,12 +17,12 @@ public class SlackResponse {
     private String receiver_id;
     private LocalDateTime send_at;
 
-    public static SlackResponse fromEntity(Slack slack){
+    public static SlackResponse fromEntity(SlackEntity slackEntity){
         return new SlackResponse(
-                slack.getId(),
-                slack.getMessage(),
-                slack.getReceiver_id(),
-                slack.getSend_at()
+                slackEntity.getId(),
+                slackEntity.getMessage(),
+                slackEntity.getReceiver_id(),
+                slackEntity.getSend_at()
         );
     }
 }

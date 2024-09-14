@@ -9,8 +9,12 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class SlackRequest {
     private String message;
     private String receiver_id;
+
+    public SlackRequest(String message,String id){
+        this.message=message;
+        this.receiver_id=id;
+    }
 }

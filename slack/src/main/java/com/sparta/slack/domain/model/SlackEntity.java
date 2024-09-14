@@ -5,9 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.security.core.userdetails.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -17,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Builder
-public class Slack extends BaseEntity{
+public class SlackEntity extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy= GenerationType.UUID)
@@ -35,8 +33,8 @@ public class Slack extends BaseEntity{
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime send_at;
 
-    public static Slack create(SlackRequest request){
-        return Slack.builder()
+    public static SlackEntity create(SlackRequest request){
+        return SlackEntity.builder()
                 .receiver_id(request.getReceiver_id())
                 .message(request.getMessage())
                 .build();
