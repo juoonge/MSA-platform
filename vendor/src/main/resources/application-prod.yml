@@ -16,4 +16,4 @@ spring:
         highlight_sql: true
 
 server:
-  port: 19100
+  port: 8080
