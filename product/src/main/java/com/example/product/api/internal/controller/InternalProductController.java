@@ -25,7 +25,7 @@ public class InternalProductController {
         }
     }
 
-    @PatchMapping("/api/internal/products/{productId}/stock")
+    @PostMapping("/api/internal/products/{productId}/stock")
     public ChangeStockRes changeStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
         try {
             productService.changeStock(productId, request.getAmount());

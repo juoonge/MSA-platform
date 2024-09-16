@@ -16,7 +16,7 @@ public interface ProductFeignClient extends ProductService {
     @GetMapping("/api/internal/products/{productId}")
     ProductInfo getProduct(@PathVariable("productId") UUID productId);
 
-    @PatchMapping("/api/internal/products/{productId}/stock")
+    @PostMapping("/api/internal/products/{productId}/stock")
     ChangeStockRes changeStock(@PathVariable("productId") UUID productId, @RequestBody ChangeStockReq request);
 
 }

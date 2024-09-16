@@ -69,7 +69,7 @@ public class OrderService {
         Order initOrder = Order.builder()
                 .orderProductId(orderProductId)
                 .quantity(quantity)
-                .orderProductId(producerVendorId)
+                .producerVendorId(producerVendorId)
                 .consumerVendorId(consumerVendorId)
                 .build();
         return orderStore.store(initOrder);
