@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@FeignClient(name = "vendor-service", url = "http://localhost:19100", fallbackFactory = VendorFallbackFactory.class)
+@FeignClient(name = "vendor-service", fallbackFactory = VendorFallbackFactory.class)
 @Primary
 public interface VendorFeignClient extends VendorService {
 

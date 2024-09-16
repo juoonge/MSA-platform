@@ -3,9 +3,9 @@ POST http://localhost:19300/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "db6783b2-0625-427f-98e7-9a65d46b62fe",
+  "orderProductId": "7423e3c8-45b0-4c4b-ab8e-3d644b890536",
   "quantity": 10,
-  "consumerVendorId": "efb82282-5f7a-4a05-b4f9-1ab8ae902615"
+  "consumerVendorId": "4e5422f9-3165-4e9b-9802-c7250ff6a51a"
 }
 
 ###
