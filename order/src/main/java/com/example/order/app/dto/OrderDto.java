@@ -1,9 +1,9 @@
 package com.example.order.app.dto;
 
 import com.example.order.domain.model.*;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
-import java.io.*;
 import java.time.*;
 import java.util.*;
 
@@ -28,10 +28,13 @@ public class OrderDto {
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class OrderInfo {
         private UUID id;
         private UUID orderProductId;
         private Long quantity;
+        @JsonIgnore
         private LocalDateTime orderedAt;
         private UUID producerVendorId;
         private UUID consumerVendorId;

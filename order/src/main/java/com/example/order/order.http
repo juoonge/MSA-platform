@@ -3,9 +3,9 @@ POST http://localhost:19300/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "7423e3c8-45b0-4c4b-ab8e-3d644b890536",
+  "orderProductId": "463ae61c-2045-496a-9177-ff472a038381",
   "quantity": 10,
-  "consumerVendorId": "4e5422f9-3165-4e9b-9802-c7250ff6a51a"
+  "consumerVendorId": "c3b78817-0b91-4913-a357-dec180db7c20"
 }
 
 ###
@@ -16,3 +16,6 @@ GET http://localhost:19300/api/orders/e6e51827-20d1-4ef7-9728-af51b5fde057
 
 ###
 GET http://localhost:19300/api/test
+
+###
+GET http://localhost:19300/api/kafka
