@@ -7,14 +7,12 @@ import com.example.order.api.response.*;
 import com.example.order.app.dto.OrderDto.*;
 import com.example.order.app.service.*;
 import lombok.*;
-import lombok.extern.slf4j.*;
 import org.springframework.data.domain.*;
 import org.springframework.kafka.core.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class OrderController {
@@ -22,10 +20,14 @@ public class OrderController {
     private final OrderService orderService;
     private final KafkaTemplate<String, Object> kafkaTemplate;
 
+    private void sendEvent(String event, Object data) {
+        kafkaTemplate.send(event, EventSerializer.serialize(data));
+    }
+
     @PostMapping("/api/orders")
     public ApiResponse<RegisterOrderRes> registerOrder(@RequestBody RegisterOrderReq request) {
         OrderInfo info = orderService.registerOrder(request.toCommand());
-        kafkaTemplate.send("order-registered", EventSerializer.serialize(info));
+        sendEvent("order-registered", info); // todo
         return ApiResponse.success("주문 등록", new RegisterOrderRes(info.getId()));
     }
 

@@ -2,12 +2,12 @@ package com.example.order.app.service;
 
 import com.example.order._client.product.*;
 import com.example.order._client.product.request.*;
-import com.example.order._client.product.response.*;
 import com.example.order._client.vendor.*;
 import com.example.order._common.*;
 import com.example.order.app.dto.OrderDto.*;
 import com.example.order.domain.model.*;
 import com.example.order.domain.service.*;
+import feign.*;
 import lombok.*;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
@@ -28,40 +28,36 @@ public class OrderService {
     public OrderInfo registerOrder(RegisterOrderCommand command) {
         VendorInfo consumerVendor = getVendor(command.getConsumerVendorId());
         ProductInfo orderProduct = getProduct(command.getOrderProductId());
-        changeStock(orderProduct, command.getQuantity());
+        decreaseProductStock(orderProduct, command.getQuantity());
         Order order = storeOrder(orderProduct.getId(), command.getQuantity(), orderProduct.getProducerVendorId(), consumerVendor.getId());
         return OrderInfo.of(order);
     }
 
     private ProductInfo getProduct(UUID productId) {
-        ProductInfo product = productService.getProduct(productId);
-        if (product == null) {
-            throw new ApiException("NOT FOUND PRODUCT");
-        } else if (product.getId() == null) {
-            throw new ApiException("PRODUCT SERVICE ERROR");
+        ProductInfo product;
+        try {
+            product = productService.getProduct(productId);
+        } catch (FeignException e) {
+            throw new ApiException("FAIL GET VENDOR");
         }
         return product;
     }
 
     private VendorInfo getVendor(UUID vendorId) {
-        VendorInfo vendor = vendorService.getVendor(vendorId);
-        if (vendor == null) {
-            throw new ApiException("NOT FOUND VENDOR");
-        } else if (vendor.getId() == null) {
-            throw new ApiException("VENDOR SERVICE ERROR");
+        VendorInfo vendor;
+        try {
+            vendor = vendorService.getVendor(vendorId);
+        } catch (FeignException e) {
+            throw new ApiException("FAIL GET VENDOR");
         }
         return vendor;
     }
 
-    private void changeStock(ProductInfo orderProduct, Long amount) {
-        if (orderProduct.getStock() < amount) {
-            throw new ApiException("NOT ENOUGH STOCK");
-        }
-        ChangeStockRes res = productService.changeStock(orderProduct.getId(), new ChangeStockReq(amount));
-        if (!res.getResult()) {
-            throw new ApiException("NOT ENOUGH STOCK");
-        } else if (res.getResult() == null) {
-            throw new ApiException("PRODUCT SERVICE ERROR");
+    private void decreaseProductStock(ProductInfo orderProduct, Long amount) {
+        try {
+            productService.decreaseStock(orderProduct.getId(), new ChangeStockReq(amount));
+        } catch (FeignException e) {
+            throw new ApiException("FAIL DECREASE PRODUCT STOCK");
         }
     }
 

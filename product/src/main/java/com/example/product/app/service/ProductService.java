@@ -38,12 +38,18 @@ public class ProductService {
     }
 
     @Transactional
-    public void changeStock(UUID productId, Long amount) {
+    public void decreaseStock(UUID productId, Long amount) {
         Product product = productReader.getProduct(productId);
-        Long stock = product.changeStock(amount);
-        if (stock < 0) {
+        if (product.getStock() < amount) {
             throw new ApiException("NOT ENOUGH STOCK");
         }
+        product.decreaseStock(amount);
+    }
+
+    @Transactional
+    public void increaseStock(UUID productId, Long amount) {
+        Product product = productReader.getProduct(productId);
+        Long stock = product.increaseStock(amount);
     }
 
     @Transactional(readOnly = true)

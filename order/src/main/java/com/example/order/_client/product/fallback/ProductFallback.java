@@ -2,7 +2,7 @@ package com.example.order._client.product.fallback;
 
 import com.example.order._client.product.*;
 import com.example.order._client.product.request.*;
-import com.example.order._client.product.response.*;
+import com.example.order._common.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -16,8 +16,13 @@ public class ProductFallback implements ProductFeignClient {
     }
 
     @Override
-    public ChangeStockRes changeStock(UUID productId, ChangeStockReq request) {
-        return null;
+    public void decreaseStock(UUID productId, ChangeStockReq request) {
+        throw new ApiException("PRODUCT SERVICE ERROR");
+    }
+
+    @Override
+    public void increaseStock(UUID productId, ChangeStockReq request) {
+        throw new ApiException("PRODUCT SERVICE ERROR");
     }
 
 }

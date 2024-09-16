@@ -5,6 +5,6 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChangeStockRes {
+public class ApiResult {
     private Boolean result;
 }

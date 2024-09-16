@@ -30,10 +30,16 @@ public class ProductController {
         return ApiResponse.success("상품 삭제", null);
     }
 
-    @PatchMapping("/api/products/{productId}/stock")
-    public ApiResponse changeStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
-        productService.changeStock(productId, request.getAmount());
-        return ApiResponse.success("상품 재고 변경", null);
+    @PatchMapping("/api/products/{productId}/stock/decrease")
+    public ApiResponse decreaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.decreaseStock(productId, request.getAmount());
+        return ApiResponse.success("상품 재고 감소", null);
+    }
+
+    @PatchMapping("/api/products/{productId}/stock/increase")
+    public ApiResponse increaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.increaseStock(productId, request.getAmount());
+        return ApiResponse.success("상품 재고 증가", null);
     }
 
     @GetMapping("/api/products/{productId}")

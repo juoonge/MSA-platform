@@ -4,7 +4,7 @@ Content-Type: application/json
 {
   "name": "product A",
   "stock": 15,
-  "producerVendorId": "c3b78817-0b91-4913-a357-dec180db7c20",
+  "producerVendorId": "823365fd-602f-4575-9f1b-39736b1a1cef",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
@@ -13,7 +13,15 @@ Content-Type: application/json
 DELETE  http://localhost:19200/api/products/b29fa056-bc31-4613-858e-1746362e27cc
 
 ###
-PATCH http://localhost:19200/api/products/e02b72ab-6214-44bd-a040-31560889a607/stock
+PATCH http://localhost:19200/api/products/5ef0f3f1-f4df-4cb2-9569-860c386c0e5a/stock/decrease
+Content-Type: application/json
+
+{
+  "amount": 3
+}
+
+###
+PATCH http://localhost:19200/api/products/9b73a334-0b92-4ced-a829-91fbf0331249/stock/increase
 Content-Type: application/json
 
 {

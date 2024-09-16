@@ -4,6 +4,7 @@ import com.example.order.domain.model.*;
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
+import java.io.*;
 import java.time.*;
 import java.util.*;
 
@@ -30,7 +31,7 @@ public class OrderDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class OrderInfo {
+    public static class OrderInfo implements Serializable {
         private UUID id;
         private UUID orderProductId;
         private Long quantity;

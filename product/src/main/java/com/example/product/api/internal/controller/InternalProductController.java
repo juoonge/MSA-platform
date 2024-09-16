@@ -1,8 +1,6 @@
 package com.example.product.api.internal.controller;
 
-import com.example.product._common.*;
 import com.example.product.api.external.request.*;
-import com.example.product.api.internal.response.*;
 import com.example.product.app.dto.ProductDto.*;
 import com.example.product.app.service.*;
 import lombok.*;
@@ -18,20 +16,16 @@ public class InternalProductController {
 
     @GetMapping("/api/internal/products/{productId}")
     public ProductInfo getProduct(@PathVariable("productId") UUID productId) {
-        try {
-            return productService.getProduct(productId);
-        } catch (Exception e) {
-            return null;
-        }
+        return productService.getProduct(productId);
     }
 
-    @PostMapping("/api/internal/products/{productId}/stock")
-    public ChangeStockRes changeStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
-        try {
-            productService.changeStock(productId, request.getAmount());
-            return new ChangeStockRes(true);
-        } catch (ApiException e) {
-            return new ChangeStockRes(false);
-        }
+    @PostMapping("/api/internal/products/{productId}/stock/decrease")
+    public void decreaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.decreaseStock(productId, request.getAmount());
+    }
+
+    @PostMapping("/api/internal/products/{productId}/stock/increase")
+    public void increaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
+        productService.increaseStock(productId, request.getAmount());
     }
 }
