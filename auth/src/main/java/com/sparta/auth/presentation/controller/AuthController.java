@@ -3,6 +3,7 @@ package com.sparta.auth.presentation.controller;
 import com.sparta.auth.application.dto.SignUpRequestDto;
 import com.sparta.auth.application.dto.UserResponse;
 import com.sparta.auth.application.dto.UserUpdateRequest;
+import com.sparta.auth.domain.model.User;
 import com.sparta.auth.infrastructure.configuration.ApiResponse;
 import com.sparta.auth.infrastructure.configuration.SortStandard;
 import com.sparta.auth.application.service.AuthService;
@@ -79,8 +80,7 @@ public class AuthController {
     }
 
     @GetMapping("/internal/auth/{user_id}")
-    public ResponseEntity<?> getUser(@PathVariable UUID user_id){
-        UserResponse user=authService.getUser(user_id);
-        return ResponseEntity.ok(new ApiResponse(200,"success","사용자 조회 성공",user));
+    public User getUser(@PathVariable UUID user_id){
+        return authService.getUser(user_id);
     }
 }

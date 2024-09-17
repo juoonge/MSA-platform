@@ -63,9 +63,9 @@ public class AuthService {
     }
 
     @PostConstruct
-    public UserResponse getUser(UUID user_id) {
+    public User getUser(UUID user_id) {
         User user = userRepository.findById(user_id).orElseThrow(() ->
                 new IllegalArgumentException("해당 사용자가 없습니다."));
-        return UserResponse.fromEntity(user);
+        return user;
     }
 }
