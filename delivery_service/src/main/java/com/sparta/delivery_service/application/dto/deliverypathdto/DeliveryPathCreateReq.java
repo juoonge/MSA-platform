@@ -1,7 +1,9 @@
 package com.sparta.delivery_service.application.dto.deliverypathdto;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class DeliveryPathCreateReq {
 
     private UUID deliveryId;
@@ -19,9 +22,9 @@ public class DeliveryPathCreateReq {
 
     private Integer sequenceNumber;
 
-    private Integer estimatedDuration;
+    private BigDecimal estimatedDuration;
 
     private Double actualDistance;
 
-    private Integer actualDuration;
+    private BigDecimal actualDuration;
 }

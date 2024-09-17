@@ -1,6 +1,7 @@
 package com.sparta.delivery_service.application.dto.deliverypathdto;
 
 import com.sparta.delivery_service.domain.enums.DeliveryPathStatus;
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +16,11 @@ public class DeliveryPathUpdateReq {
 
     private Integer sequenceNumber;
 
-    private Integer estimatedDuration;
+    private BigDecimal estimatedDuration;
 
     private Double actualDistance;
 
-    private Integer actualDuration;
+    private BigDecimal actualDuration;
 
     private DeliveryPathStatus currentStatus;
 

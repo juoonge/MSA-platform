@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +25,7 @@ public class HubController {
 
     /**
      * 허브 생성
+     *
      * @RequestHeader("Authorization") String authorization  createHub 뒤에 삽입하기
      */
     @PostMapping
@@ -38,18 +38,18 @@ public class HubController {
 
     /**
      * 허브 단건 조회
+     *
      * @RequestHeader("Authorization") String authorization
      */
     @GetMapping("/{hubId}")
-    public ResponseEntity<ApiResponse> getHub(@PathVariable UUID hubId) {
-        HubDTO hubDTO = hubService.getHub(hubId);
+    public HubDTO getHub(@PathVariable UUID hubId) {
 
-        ApiResponse response = new ApiResponse(200, "success", "허브 단건 조회 완료", hubDTO);
-        return ResponseEntity.ok(response);
+        return hubService.getHub(hubId);
     }
 
     /**
      * 허브 목록 조회
+     *
      * @RequestHeader("Authorization") String authorization
      */
     @GetMapping
@@ -62,13 +62,14 @@ public class HubController {
 
     /**
      * 허브 수정
+     *
      * @RequestHeader("Authorization") String authorization
      */
     @PatchMapping("/{hubId}")
     public ResponseEntity<ApiResponse> updateHub(
         @PathVariable UUID hubId,
         @RequestBody HubDTO hubDTO
-        ) {
+    ) {
         hubService.updateHub(hubId, hubDTO);
 
         ApiResponse response = new ApiResponse(200, "success", "허브 수정 성공", null);

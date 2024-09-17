@@ -2,9 +2,12 @@ package com.sparta.hub_service.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -28,20 +31,21 @@ public class HubPath extends TimeStamped {
     @Column(name = "hub_path_id")
     private UUID hubPathId;
 
-    @Column(name = "start_hub_id", nullable = false)
-    private Long startHubId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "start_hub_id", referencedColumnName = "hub_id", nullable = false)
+    private Hub startHub;
 
-    @Column(name = "end_hub_id", nullable = false)
-    private Long endHubId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "end_hub_id", referencedColumnName = "hub_id", nullable = false)
+    private Hub endHub;
 
     @Column(name = "duration")
     private BigDecimal duration;  // 소요 시간
 
-    @Builder
-    public static HubPath create(final Long startHubId, final Long endHubId) {
+    public static HubPath create(final Hub startHub, final Hub endHub) {
         HubPath hubPath = HubPath.builder()
-            .startHubId(startHubId)
-            .endHubId(endHubId)
+            .startHub(startHub)
+            .endHub(endHub)
             .build();
         hubPath.setIsDeleted(false);
         return hubPath;
@@ -54,6 +58,4 @@ public class HubPath extends TimeStamped {
     public void softDeleted() {
         this.setIsDeleted(true);
     }
-
 }
-

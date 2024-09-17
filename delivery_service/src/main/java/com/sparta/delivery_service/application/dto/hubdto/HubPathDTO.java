@@ -1,11 +1,10 @@
-package com.sparta.hub_service.application.dto;
+package com.sparta.delivery_service.application.dto.hubdto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -16,5 +15,11 @@ public class HubPathDTO implements Serializable {
     private UUID endHubId;
     private BigDecimal duration;
     private Integer sequenceNumber;
+
+    public HubPathDTO(Integer sequenceNumber, UUID startHubId) {
+        this.sequenceNumber = sequenceNumber;
+        this.startHubId = startHubId;
+    }
+
 }
 

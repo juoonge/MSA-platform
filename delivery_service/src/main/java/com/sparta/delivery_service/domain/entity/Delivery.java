@@ -49,12 +49,6 @@ public class Delivery extends TimeStamped implements Serializable {
     @Column
     private String address;
 
-//    @ElementCollection
-//    @CollectionTable(name = "delivery_paths", joinColumns = @JoinColumn(name = "delivery_id"))
-//    @Column(name = "hub_path_id")
-//    private List<UUID> deliveryPaths;
-
-
     public static Delivery createDelivery(DeliveryDTO deliveryDto) {
         return Delivery.builder()
             .orderId(deliveryDto.getOrderId())

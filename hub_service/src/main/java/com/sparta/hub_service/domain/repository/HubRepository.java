@@ -16,4 +16,6 @@ public interface HubRepository extends JpaRepository<Hub, UUID> {
 
     List<Hub> findAllByIsDeletedFalse();
     // 필요한 커스텀 쿼리 메소드 작성 가능
+
+    Optional<Hub> findByHubSequenceAndIsDeletedFalse(Integer hubSequence);
 }

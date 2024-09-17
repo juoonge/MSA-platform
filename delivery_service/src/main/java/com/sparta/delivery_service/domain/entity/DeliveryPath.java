@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,16 +39,19 @@ public class DeliveryPath extends TimeStamped {
     private UUID hubId;
 
     @Column
+    private Integer userId;
+
+    @Column
     private Integer sequenceNumber;
 
     @Column
-    private Integer estimatedDuration;
+    private BigDecimal estimatedDuration;
 
     @Column
     private Double actualDistance;
 
     @Column
-    private Integer actualDuration;
+    private BigDecimal actualDuration;
 
     @Enumerated(EnumType.STRING)
     @Column

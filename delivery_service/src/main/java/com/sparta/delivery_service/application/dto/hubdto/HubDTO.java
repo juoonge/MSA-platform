@@ -1,19 +1,19 @@
-package com.sparta.hub_service.application.dto;
+package com.sparta.delivery_service.application.dto.hubdto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HubDTO implements Serializable {
+public class HubDTO implements Serializable{
 
     private UUID hubId;  // 허브 ID
     private String name;  // 허브 이름
@@ -24,4 +24,3 @@ public class HubDTO implements Serializable {
     private String hubDeliveryManagerId;  // 허브 배송 담당자 ID
     private List<String> vendorDeliveryManagerIds;  // 업체 배송 담당자 목록
 }
-

@@ -34,6 +34,7 @@ public class HubService {
     public HubDTO getHub(UUID hubId) {
         Hub hub = hubRepository.findByHubIdAndIsDeletedFalse(hubId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));  // 허브가 없으면 예외 발생
+
         return hubMapper.toDto(hub);  // 엔티티를 DTO로 변환
     }
 

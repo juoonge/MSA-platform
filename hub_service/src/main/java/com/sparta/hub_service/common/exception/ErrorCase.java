@@ -29,12 +29,15 @@ public enum ErrorCase {
     DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST,2002, "중복된 Email 입니다."),
 
 
-    /* 허브 3000번대 */
+    /* 허브 경로 3000번대 */
 
     // 허브 경로를 찾을 수 없음 404
-    HUB_PATH_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "허브 경로를 찾을 수 없습니다.")
-    ;
+    HUB_PATH_NOT_FOUND(HttpStatus.NOT_FOUND, 3000, "허브 경로를 찾을 수 없습니다."),
 
+
+    /* 허브 4000번대 */
+    HUB_NOT_FOUND(HttpStatus.NOT_FOUND, 4000, "허브를 찾을 수 없습니다.")
+        ;
     private final HttpStatus httpStatus; // 응답 상태 코드
     private final Integer code; // 응답 코드. 도메인에 따라 1000번대로 나뉨
     private final String message; // 응답에 대한 설명

@@ -41,6 +41,7 @@ dependencies {
 	//Redis를 통해 분산된 세션 관리 기능을 구현 (주로 서버 간 세션 공유 목적).
 	implementation 'org.springframework.session:spring-session-data-redis'
 
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'

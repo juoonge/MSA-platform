@@ -2,6 +2,7 @@ package com.sparta.delivery_service.application.dto.deliverypathdto;
 
 import com.sparta.delivery_service.domain.entity.DeliveryPath;
 import com.sparta.delivery_service.domain.enums.DeliveryPathStatus;
+import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,11 +24,11 @@ public class DeliveryPathRes {
 
     private Integer sequenceNumber;
 
-    private Integer estimatedDuration;
+    private BigDecimal estimatedDuration;
 
     private Double actualDistance;
 
-    private Integer actualDuration;
+    private BigDecimal actualDuration;
 
     private DeliveryPathStatus currentStatus;
 

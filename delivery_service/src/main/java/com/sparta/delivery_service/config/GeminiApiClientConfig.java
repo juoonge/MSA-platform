@@ -13,10 +13,10 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class GeminiApiClientConfig {
 
-    @Value("${gemini.api.url}")
+    @Value("${GEMINI_API_URL}")
     private String geminiApiUrl;
 
-    @Value("${gemini.api.key}")
+    @Value("${GEMINI_API_KEY}")
     private String geminiApiKey;
 
     @Bean
