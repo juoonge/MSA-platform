@@ -37,7 +37,7 @@ public class Vendor extends BaseEntity {
         this.belongingHubId = belongingHubId;
     }
 
-    public void withdraw() {
+    public void remove() {
         super.delete();
     }
 }

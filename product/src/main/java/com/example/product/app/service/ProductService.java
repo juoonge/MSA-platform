@@ -21,12 +21,12 @@ public class ProductService {
     private final VendorService vendorService;
 
     @Transactional
-    public ProductInfo registerProduct(RegisterProductCommand command) {
-//        vendorService.getVendor(command.getProducerVendorId());
+    public UUID registerProduct(RegisterProductCommand command) {
+        // vendorService.getVendor(command.getProducerVendorId());
         // hub 존재 확인
         Product intitProduct = command.toEntity();
         Product product = productStore.store(intitProduct);
-        return ProductInfo.of(product);
+        return product.getId();
     }
 
     @Transactional

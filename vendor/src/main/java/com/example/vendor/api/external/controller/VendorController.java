@@ -19,20 +19,14 @@ public class VendorController {
 
     @PostMapping("/api/vendors")
     public ApiResponse<RegisterVendorRes> registerVendor(@RequestBody RegisterVendorReq request) {
-        VendorInfo info = vendorService.registerVendor(request.toCommand());
-        return ApiResponse.success("업체 등록", new RegisterVendorRes(info.getId()));
+        UUID vendorId = vendorService.registerVendor(request.toCommand());
+        return ApiResponse.success("업체 등록", new RegisterVendorRes(vendorId));
     }
 
     @DeleteMapping("/api/vendors/{vendorId}")
-    public ApiResponse withdrawVendor(@PathVariable("vendorId") UUID vendorId) {
-        vendorService.withdrawVendor(vendorId);
-        return ApiResponse.success("업체 탈퇴", null);
-    }
-
-    @PatchMapping("/api/vendors/{vendorId}")
-    public ApiResponse changeBelongingHub(@PathVariable("vendorId") UUID vendorId, @RequestBody ChangeBelongingHubReq request) {
-        vendorService.changeBelongingHub(vendorId, request.getBelongingHubId());
-        return ApiResponse.success("소속 허브 변경", null);
+    public ApiResponse removeVendor(@PathVariable("vendorId") UUID vendorId) {
+        vendorService.removeVendor(vendorId);
+        return ApiResponse.success("업체 탈퇴");
     }
 
     @GetMapping("/api/vendors/{vendorId}")
