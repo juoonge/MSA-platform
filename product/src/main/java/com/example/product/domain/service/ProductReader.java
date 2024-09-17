@@ -10,6 +10,8 @@ public interface ProductReader {
 
     Product getExistProduct(UUID orderId);
 
+    Product getExistProductWithLock(UUID productId);
+
     List<Product> searchProduct(Pageable page);
 
     List<Product> searchExistProduct(Pageable page);

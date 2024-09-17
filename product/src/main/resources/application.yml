@@ -3,7 +3,7 @@ spring:
     name: product-service
 
   profiles:
-    active: prod
+    active: dev
 
   cloud:
     openfeign:
@@ -15,7 +15,7 @@ spring:
 resilience4j:
   circuit breaker:
     configs:
-      default:  # 기본 구성 이름
+      default: # 기본 구성 이름
         registerHealthIndicator: true  # 애플리케이션의 헬스 체크에 서킷 브레이커 상태를 추가하여 모니터링 가능
         # 서킷 브레이커가 동작할 때 사용할 슬라이딩 윈도우의 타입을 설정
         # COUNT_BASED: 마지막 N번의 호출 결과를 기반으로 상태를 결정

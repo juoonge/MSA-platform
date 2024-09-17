@@ -20,6 +20,8 @@ public class Product extends BaseEntity {
     private Long stock;
     private UUID producerVendorId;
     private UUID belongingHubId;
+    @Version
+    private Long version;
 
     @Builder
     public Product(String name, Long stock, UUID producerVendorId, UUID belongingHubId) {

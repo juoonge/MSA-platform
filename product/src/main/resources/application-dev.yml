@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/sparta-vendor
+    url: jdbc:mysql://localhost:3306/sparta-product
     username: panjun
     password: 0709
 

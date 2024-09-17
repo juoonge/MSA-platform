@@ -31,6 +31,13 @@ public class ProductReaderImpl implements ProductReader {
     }
 
     @Override
+    public Product getExistProductWithLock(UUID productId) {
+        return productRepository.findByIdWithOptimisticLock(productId).orElseThrow(
+                () -> new ApiException("NOT FOUND PRODUCT")
+        );
+    }
+
+    @Override
     public List<Product> searchProduct(Pageable page) {
         return productRepository.findAll(page).getContent();
     }
