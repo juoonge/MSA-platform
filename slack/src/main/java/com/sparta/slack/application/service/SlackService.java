@@ -6,6 +6,8 @@ import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
 import com.sparta.slack.application.dto.SlackRequest;
 import com.sparta.slack.application.dto.SlackResponse;
+import com.sparta.slack.domain.hub.HubResponseDto;
+import com.sparta.slack.domain.hub.HubService;
 import com.sparta.slack.domain.model.SlackEntity;
 import com.sparta.slack.domain.repository.SlackRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +26,7 @@ import java.util.UUID;
 @Slf4j
 public class SlackService {
     private final SlackRepository slackRepository;
+    private final HubService hubService;
 
     @Value(value="${slack.token}")
     String slackToken;
