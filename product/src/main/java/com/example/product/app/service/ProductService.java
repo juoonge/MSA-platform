@@ -6,7 +6,9 @@ import com.example.product.app.dto.ProductDto.*;
 import com.example.product.domain.model.*;
 import com.example.product.domain.service.*;
 import lombok.*;
+import org.springframework.dao.*;
 import org.springframework.data.domain.*;
+import org.springframework.retry.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
@@ -35,18 +37,20 @@ public class ProductService {
         product.remove();
     }
 
+    @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 50, backoff = @Backoff(delay = 100))
     @Transactional
     public void decreaseStock(UUID productId, Long amount) {
-        Product product = productReader.getExistProduct(productId);
+        Product product = productReader.getExistProductWithLock(productId);
         if (product.getStock() < amount) {
             throw new ApiException("NOT ENOUGH STOCK");
         }
         product.decreaseStock(amount);
     }
 
+    @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 50, backoff = @Backoff(delay = 100))
     @Transactional
     public void increaseStock(UUID productId, Long amount) {
-        Product product = productReader.getExistProduct(productId);
+        Product product = productReader.getExistProductWithLock(productId);
         product.increaseStock(amount);
     }
 
@@ -65,7 +69,7 @@ public class ProductService {
 
     @Transactional(readOnly = true)
     public ProductInfo getProduct(UUID productId) {
-        Product product = productReader.getProduct(productId);
+        Product product = productReader.getExistProduct(productId);
         return ProductInfo.of(product);
     }
 }
