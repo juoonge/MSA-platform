@@ -19,19 +19,19 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class AuthController {
     private final AuthService authService;
 
     // 회원가입
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<?> createUser(@RequestBody SignUpRequestDto request){
         authService.createUser(request);
         return ResponseEntity.ok(new ApiResponse(200,"success","회원가입 완료",null));
     }
 
     // 사용자 정보 전체조회
-    @GetMapping
+    @GetMapping("/auth")
     public ResponseEntity<?> getUsers(
             @RequestParam(defaultValue="0") int pageNumber,
             @RequestParam(defaultValue="10") int size,
@@ -44,7 +44,7 @@ public class AuthController {
     }
 
     // 사용자 정보 수정
-    @PatchMapping("/{user_id}")
+    @PatchMapping("/auth/{user_id}")
     public ResponseEntity<?> updateUser(
             @PathVariable UUID user_id,
             @RequestBody UserUpdateRequest request
@@ -54,14 +54,14 @@ public class AuthController {
     }
 
     // 사용자 탈퇴
-    @DeleteMapping("/{user_id}")
+    @DeleteMapping("/auth/{user_id}")
     public ResponseEntity<?> deleteUser(@PathVariable UUID user_id){
         authService.deleteUser(user_id);
         return ResponseEntity.ok(new ApiResponse(200,"success","사용자 탈퇴 성공",null));
     }
 
     // 사용자 검색
-    @GetMapping("/search")
+    @GetMapping("/auth/search")
     public ResponseEntity<?> searchUsers(
             @RequestParam(defaultValue="0") int pageNumber,
             @RequestParam(defaultValue="10") int size,
@@ -76,5 +76,11 @@ public class AuthController {
                 keyword,PageRequest.of(pageNumber,size,sort.getSort())
         );
         return ResponseEntity.ok(new ApiResponse(200,"success","사용자 검색 성공",users));
+    }
+
+    @GetMapping("/internal/auth/{user_id}")
+    public ResponseEntity<?> getUser(@PathVariable UUID user_id){
+        UserResponse user=authService.getUser(user_id);
+        return ResponseEntity.ok(new ApiResponse(200,"success","사용자 조회 성공",user));
     }
 }

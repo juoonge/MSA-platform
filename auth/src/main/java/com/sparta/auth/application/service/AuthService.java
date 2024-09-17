@@ -5,6 +5,7 @@ import com.sparta.auth.application.dto.UserResponse;
 import com.sparta.auth.application.dto.UserUpdateRequest;
 import com.sparta.auth.domain.model.User;
 import com.sparta.auth.domain.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -59,5 +60,12 @@ public class AuthService {
     public Page<UserResponse> searchUsers(String keyword, PageRequest pageRequest) {
         Page<User> users = userRepository.findByUsernameStartingWithOrEmailStartingWith(keyword, keyword, pageRequest);
         return users.map(UserResponse::fromEntity);
+    }
+
+    @PostConstruct
+    public UserResponse getUser(UUID user_id) {
+        User user = userRepository.findById(user_id).orElseThrow(() ->
+                new IllegalArgumentException("해당 사용자가 없습니다."));
+        return UserResponse.fromEntity(user);
     }
 }
