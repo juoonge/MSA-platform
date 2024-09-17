@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: vendor-service
+
+  profiles:
+    active: prod

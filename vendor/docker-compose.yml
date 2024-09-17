@@ -1,0 +1,26 @@
+services:
+  vendor-db:
+    image: mysql:latest
+    container_name: vendor-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 0000
+      MYSQL_DATABASE: sparta-vendor
+      MYSQL_USER: vendor
+      MYSQL_PASSWORD: 9999
+    ports:
+      - "13306:3306"
+
+  vendor-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vendor-service
+    ports:
+      - "19100:8080"
+    depends_on:
+      - vendor-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://vendor-db:3306/sparta-vendor
+      SPRING_DATASOURCE_USERNAME: vendor
+      SPRING_DATASOURCE_PASSWORD: 9999
+    restart: always

@@ -1,0 +1,26 @@
+services:
+  product-db:
+    image: mysql:latest
+    container_name: product-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 0000
+      MYSQL_DATABASE: sparta-product
+      MYSQL_USER: product
+      MYSQL_PASSWORD: 9999
+    ports:
+      - "23306:3306"
+
+  product-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: product-service
+    ports:
+      - "19200:8080"
+    depends_on:
+      - product-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://product-db:3306/sparta-product
+      SPRING_DATASOURCE_USERNAME: product
+      SPRING_DATASOURCE_PASSWORD: 9999
+    restart: always

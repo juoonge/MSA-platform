@@ -1,0 +1,102 @@
+package com.example.gateway.config;
+
+import com.example.gateway.domain.UserDto;
+import com.example.gateway.service.RedisService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilter;
+import reactor.core.publisher.Mono;
+
+import java.util.Base64;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+@Configuration
+@EnableWebFluxSecurity
+public class SecurityConfig {
+
+    @Value("${jwt.secret.key}") // Base64 Encode 한 SecretKey
+    private String secretKeyString;
+
+
+    @Bean
+    public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+        http
+                .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 비활성화
+                .addFilterAt(jwtAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC);
+
+        return http.build();
+    }
+
+    @Bean
+    public WebFilter jwtAuthenticationFilter() {
+        // 게이트웨이 jwt 인증 처리 필터
+        return (exchange, chain) -> {
+
+            // /auth/login 경로는 필터를 적용하지 않음
+            String path=exchange.getRequest().getURI().getPath();
+            if (path.equals("/api/auth/login")||path.equals("/api/auth/signup")) {
+                return chain.filter(exchange);
+            }
+
+            HttpHeaders headers = exchange.getRequest().getHeaders();
+            String authHeader = headers.getFirst(HttpHeaders.AUTHORIZATION);
+
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                String token = authHeader.substring(7);
+                try {
+                    byte[] bytes = Base64.getDecoder().decode(secretKeyString);
+                    var secretKey = Keys.hmacShaKeyFor(bytes);
+
+                    Claims claims = Jwts
+                            .parserBuilder()
+                            .setSigningKey(secretKey).build()
+                            .parseClaimsJws(token)
+                            .getBody();
+
+                    String username = claims.getSubject();
+                    Collection<String> roles = claims.get("roles", Collection.class);
+                    String rolesString = roles != null ? String.join(",", roles) : "";
+
+//
+//                    var userDto =
+//                            Optional.ofNullable(
+//                                            redisService.getValueAsClass("user:" + username, UserDto.class)
+//                                    )
+//                                    .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found")
+//                                    );
+
+
+                    // 사용자 정보를 새로운 헤더에 추가
+                    ServerHttpRequest modifiedRequest = exchange.getRequest().mutate()
+                            .header("X-User-Name", username)  // 사용자명 헤더 추가
+                            .header("X-User-Roles", rolesString)    // 권한 정보 헤더 추가
+                            .build();
+
+                    // 수정된 요청으로 필터 체인 계속 처리
+                    ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
+                    return chain.filter(modifiedExchange);
+
+                    // 추가적인 JWT 처리 로직을 넣을 수 있음
+                } catch (Exception e) {
+                    return Mono.error(new RuntimeException("Invalid JWT Token"));
+                }
+            }
+
+            return chain.filter(exchange);
+        };
+    }
+}
