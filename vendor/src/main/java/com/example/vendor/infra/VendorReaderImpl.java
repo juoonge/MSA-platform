@@ -24,8 +24,20 @@ public class VendorReaderImpl implements VendorReader {
     }
 
     @Override
-    public List<Vendor> findVendor(Pageable page) {
+    public Vendor getExistVendor(UUID vendorId) {
+        return vendorRepository.findByIdAndIsDeleted(vendorId, false).orElseThrow(
+                () -> new ApiException("NOT FOUND ORDER")
+        );
+    }
+
+    @Override
+    public List<Vendor> searchVendor(Pageable page) {
         return vendorRepository.findAll(page).getContent();
+    }
+
+    @Override
+    public List<Vendor> searchExistVendor(Pageable page) {
+        return vendorRepository.findAllByIsDeleted(page, false).getContent();
     }
 
 }

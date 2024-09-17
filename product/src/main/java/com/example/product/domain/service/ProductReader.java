@@ -8,5 +8,9 @@ import java.util.*;
 public interface ProductReader {
     Product getProduct(UUID productId);
 
-    List<Product> findProduct(Pageable page);
+    Product getExistProduct(UUID orderId);
+
+    List<Product> searchProduct(Pageable page);
+
+    List<Product> searchExistProduct(Pageable page);
 }

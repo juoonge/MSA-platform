@@ -24,7 +24,19 @@ public class ProductReaderImpl implements ProductReader {
     }
 
     @Override
-    public List<Product> findProduct(Pageable page) {
+    public Product getExistProduct(UUID productId) {
+        return productRepository.findByIdAndIsDeleted(productId, false).orElseThrow(
+                () -> new ApiException("NOT FOUND PRODUCT")
+        );
+    }
+
+    @Override
+    public List<Product> searchProduct(Pageable page) {
         return productRepository.findAll(page).getContent();
+    }
+
+    @Override
+    public List<Product> searchExistProduct(Pageable page) {
+        return productRepository.findAllByIsDeleted(page, false).getContent();
     }
 }

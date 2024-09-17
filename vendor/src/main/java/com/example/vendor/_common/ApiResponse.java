@@ -6,9 +6,7 @@ import org.springframework.http.*;
 import java.io.*;
 
 @Getter
-@NoArgsConstructor
 @Builder
-@AllArgsConstructor
 public class ApiResponse<T> implements Serializable {
 
     private int statusCode;
@@ -23,6 +21,10 @@ public class ApiResponse<T> implements Serializable {
                 .message(message)
                 .data(data)
                 .build();
+    }
+
+    public static <T> ApiResponse<T> success(String message) {
+        return ApiResponse.success(message, null);
     }
 
     public static ApiResponse fail(String message) {
