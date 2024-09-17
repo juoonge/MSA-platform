@@ -1,5 +1,5 @@
 server:
-  port: 19091
+  port: 8080
 
 spring:
   data:
@@ -29,7 +29,7 @@ jwt:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:19090/eureka/
+      defaultZone: http://localhost:8761/eureka/
 
 logging:
   level:

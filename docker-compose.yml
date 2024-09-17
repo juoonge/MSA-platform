@@ -10,6 +10,17 @@ services:
     networks:
       - msa-network
 
+# gateway
+  gateway-service:
+    build:
+      context: ./gateway/
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "8080:8080"
+    networks:
+      - gateway-network
+
 # vendor
   vendor-db:
     image: mysql:latest
