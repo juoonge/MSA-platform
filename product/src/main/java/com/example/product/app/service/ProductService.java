@@ -22,10 +22,8 @@ public class ProductService {
 
     @Transactional
     public ProductInfo registerProduct(RegisterProductCommand command) {
-        VendorInfo vendor = vendorService.getVendor(command.getProducerVendorId());
-        if (vendor == null) {
-            throw new ApiException("NOT FOUND VENDOR");
-        }
+//        vendorService.getVendor(command.getProducerVendorId());
+        // hub 존재 확인
         Product intitProduct = command.toEntity();
         Product product = productStore.store(intitProduct);
         return ProductInfo.of(product);
@@ -39,7 +37,7 @@ public class ProductService {
 
     @Transactional
     public void decreaseStock(UUID productId, Long amount) {
-        Product product = productReader.getProduct(productId);
+        Product product = productReader.getExistProduct(productId);
         if (product.getStock() < amount) {
             throw new ApiException("NOT ENOUGH STOCK");
         }
@@ -48,24 +46,24 @@ public class ProductService {
 
     @Transactional
     public void increaseStock(UUID productId, Long amount) {
-        Product product = productReader.getProduct(productId);
-        Long stock = product.increaseStock(amount);
+        Product product = productReader.getExistProduct(productId);
+        product.increaseStock(amount);
     }
 
     @Transactional(readOnly = true)
     public ProductInfo retrieveProduct(UUID productId) {
-        Product product = productReader.getProduct(productId);
+        Product product = productReader.getExistProduct(productId);
         return ProductInfo.of(product);
     }
 
     @Transactional(readOnly = true)
     public List<ProductInfo> retrieveProductList(Pageable page) {
-        List<Product> productList = productReader.findProduct(page);
+        List<Product> productList = productReader.searchExistProduct(page);
         List<ProductInfo> productInfoList = productList.stream().map(ProductInfo::of).toList();
         return productInfoList;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ProductInfo getProduct(UUID productId) {
         Product product = productReader.getProduct(productId);
         return ProductInfo.of(product);

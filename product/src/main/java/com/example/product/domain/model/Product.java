@@ -20,17 +20,13 @@ public class Product extends BaseEntity {
     private Long stock;
     private UUID producerVendorId;
     private UUID belongingHubId;
-    
+
     @Builder
     public Product(String name, Long stock, UUID producerVendorId, UUID belongingHubId) {
         this.name = name;
         this.stock = stock;
         this.producerVendorId = producerVendorId;
         this.belongingHubId = belongingHubId;
-    }
-
-    public void remove() {
-        super.delete();
     }
 
     public Long decreaseStock(Long amount) {
@@ -41,5 +37,9 @@ public class Product extends BaseEntity {
     public Long increaseStock(Long amount) {
         this.stock = this.stock + amount;
         return this.stock;
+    }
+
+    public void remove() {
+        super.delete();
     }
 }
