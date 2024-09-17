@@ -23,6 +23,10 @@ public class ApiResponse<T> implements Serializable {
                 .build();
     }
 
+    public static <T> ApiResponse<T> success(String message) {
+        return ApiResponse.success(message, null);
+    }
+
     public static ApiResponse fail(String message) {
         return ApiResponse.builder()
                 .statusCode(HttpStatus.BAD_REQUEST.value())

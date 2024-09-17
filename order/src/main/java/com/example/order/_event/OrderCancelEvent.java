@@ -8,6 +8,7 @@ import java.util.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelOrderEvent implements Serializable {
-    private UUID orderId;
+public class OrderCancelEvent implements Serializable {
+    private UUID orderProductId;
+    private Long amount;
 }

@@ -32,7 +32,7 @@ public class OrderDto {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class OrderInfo implements Serializable {
-        private UUID id;
+        private UUID orderId;
         private UUID orderProductId;
         private Long quantity;
         @JsonIgnore
@@ -43,7 +43,7 @@ public class OrderDto {
 
         public static OrderInfo of(Order order) {
             return OrderInfo.builder()
-                    .id(order.getId())
+                    .orderId(order.getId())
                     .orderProductId(order.getOrderProductId())
                     .quantity(order.getQuantity())
                     .orderedAt(order.getOrderedAt())

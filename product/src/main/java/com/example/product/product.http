@@ -1,18 +1,18 @@
+### 상품 등록
 POST http://localhost:19200/api/products
 Content-Type: application/json
 
 {
   "name": "product A",
   "stock": 15,
-  "producerVendorId": "823365fd-602f-4575-9f1b-39736b1a1cef",
+  "producerVendorId": "e9cb3865-69e0-44cc-bb0e-ec12191057a3",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
-
-###
+### 상품 삭제
 DELETE  http://localhost:19200/api/products/b29fa056-bc31-4613-858e-1746362e27cc
 
-###
+### 상품 재고 감소
 PATCH http://localhost:19200/api/products/5ef0f3f1-f4df-4cb2-9569-860c386c0e5a/stock/decrease
 Content-Type: application/json
 
@@ -20,7 +20,7 @@ Content-Type: application/json
   "amount": 3
 }
 
-###
+### 상품 재고 증가
 PATCH http://localhost:19200/api/products/9b73a334-0b92-4ced-a829-91fbf0331249/stock/increase
 Content-Type: application/json
 
@@ -28,19 +28,8 @@ Content-Type: application/json
   "amount": 3
 }
 
-###
+### 상품 단건 조회
 GET http://localhost:19200/api/products/2eefcc1e-9ad0-495c-8479-ebea7e2a6869
 
-###
+### 상품 목록 조회
 GET http://localhost:19200/api/products
-
-###
-GET http://localhost:19200/api/internal/products/eee4d247-2459-4ded-8186-a1b854db1261
-
-###
-PATCH http://localhost:19200/api/internal/products/4597b30b-a4e3-4946-9349-d9e2c8c16ecc/stock
-Content-Type: application/json
-
-{
-  "amount": -30
-}
