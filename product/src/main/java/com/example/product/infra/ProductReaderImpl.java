@@ -19,7 +19,7 @@ public class ProductReaderImpl implements ProductReader {
     @Override
     public Product getProduct(UUID productId) {
         return productRepository.findById(productId).orElseThrow(
-                () -> new ApiException("NOT FOUND ENTITY")
+                () -> new ApiException("NOT FOUND PRODUCT")
         );
     }
 

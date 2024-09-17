@@ -18,14 +18,12 @@ public class ProductService {
 
     private final ProductReader productReader;
     private final ProductStore productStore;
-    private final VendorFeignClient vendorFeignClient;
+    private final VendorService vendorService;
 
     @Transactional
     public ProductInfo registerProduct(RegisterProductCommand command) {
-        Boolean existsVendor = vendorFeignClient.exists(command.getProducerVendorId());
-        if (existsVendor == null) {
-            throw new ApiException("VENDOR SERVICE ERROR");
-        } else if (!existsVendor) {
+        VendorInfo vendor = vendorService.getVendor(command.getProducerVendorId());
+        if (vendor == null) {
             throw new ApiException("NOT FOUND VENDOR");
         }
         Product intitProduct = command.toEntity();
@@ -40,9 +38,18 @@ public class ProductService {
     }
 
     @Transactional
-    public void changeProductStock(UUID productId, Long amount) {
+    public void decreaseStock(UUID productId, Long amount) {
         Product product = productReader.getProduct(productId);
-        product.changeStock(amount);
+        if (product.getStock() < amount) {
+            throw new ApiException("NOT ENOUGH STOCK");
+        }
+        product.decreaseStock(amount);
+    }
+
+    @Transactional
+    public void increaseStock(UUID productId, Long amount) {
+        Product product = productReader.getProduct(productId);
+        Long stock = product.increaseStock(amount);
     }
 
     @Transactional(readOnly = true)
@@ -58,4 +65,9 @@ public class ProductService {
         return productInfoList;
     }
 
+    @Transactional
+    public ProductInfo getProduct(UUID productId) {
+        Product product = productReader.getProduct(productId);
+        return ProductInfo.of(product);
+    }
 }

@@ -28,6 +28,8 @@ public class ProductDto {
 
     @Getter
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class ProductInfo {
 
         private UUID id;

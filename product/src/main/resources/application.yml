@@ -12,16 +12,6 @@ spring:
         alphanumeric-ids:
           enabled: true
 
-server:
-  port: 9201
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:19090/eureka/
-
 resilience4j:
   circuit breaker:
     configs:

@@ -8,6 +8,7 @@ import java.io.*;
 import java.util.*;
 
 @Getter
+@NoArgsConstructor
 public class RegisterVendorReq {
 
     private String name;

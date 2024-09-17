@@ -10,6 +10,7 @@ import java.util.*;
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class RetrieveVendorRes implements Serializable {
 
     private UUID id;

@@ -1,0 +1,24 @@
+### 주문 등록
+POST http://localhost:19300/api/orders
+Content-Type: application/json
+
+{
+  "orderProductId": "c532bab6-19e4-4e66-bd41-8cc3469b3651",
+  "quantity": 4,
+  "consumerVendorId": "e9cb3865-69e0-44cc-bb0e-ec12191057a3"
+}
+
+### 주문 취소
+PATCH http://localhost:19300/api/orders/9d66b98d-5a62-4aec-be05-d2cc8cd57ef7/cancel
+
+### 주문 삭제
+DELETE http://localhost:19300/api/orders/9d66b98d-5a62-4aec-be05-d2cc8cd57ef7
+
+### 주문 단건 조회
+GET http://localhost:19300/api/orders/d0171d8c-1f92-4eee-af03-ba32c051e599
+
+### 주문 목록 조회
+GET http://localhost:19300/api/orders
+
+### 배달 완료 대행
+GET http://localhost:19300/api/test/c3395419-80e2-4536-81f1-be0ffcbbddad/f754173e-8562-45bd-9f56-834f35d300ca

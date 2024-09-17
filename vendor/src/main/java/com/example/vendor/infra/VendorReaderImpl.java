@@ -19,18 +19,13 @@ public class VendorReaderImpl implements VendorReader {
     @Override
     public Vendor getVendor(UUID vendorId) {
         return vendorRepository.findById(vendorId).orElseThrow(
-                () -> new ApiException("NOT FOUND ENTITY")
+                () -> new ApiException("NOT FOUND VENDOR")
         );
     }
 
     @Override
     public List<Vendor> findVendor(Pageable page) {
         return vendorRepository.findAll(page).getContent();
-    }
-
-    @Override
-    public Boolean exists(UUID vendorId) {
-        return vendorRepository.existsById(vendorId);
     }
 
 }

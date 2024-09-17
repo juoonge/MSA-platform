@@ -5,8 +5,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: sparta-order
-      MYSQL_USER: panjun
-      MYSQL_PASSWORD: 0709
+      MYSQL_USER: order
+      MYSQL_PASSWORD: 9999
     ports:
       - "33306:3306"
 
@@ -16,11 +16,11 @@ services:
       dockerfile: Dockerfile
     container_name: order-service
     ports:
-      - "9301:9301"
+      - "19300:8080"
     depends_on:
       - order-db
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://order-db:3306/sparta-order
-      SPRING_DATASOURCE_USERNAME: panjun
-      SPRING_DATASOURCE_PASSWORD: 0709
+      SPRING_DATASOURCE_USERNAME: order
+      SPRING_DATASOURCE_PASSWORD: 9999
     restart: always

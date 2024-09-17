@@ -1,39 +1,41 @@
 package com.example.order.app.dto;
 
 import com.example.order.domain.model.*;
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
+import java.io.*;
 import java.time.*;
 import java.util.*;
 
 public class OrderDto {
 
+    @Getter
     @Builder
     public static class RegisterOrderCommand {
 
         private UUID orderProductId;
         private Long quantity;
-        private UUID producerVendorId;
         private UUID consumerVendorId;
-        private UUID deliveryId;
 
         public Order toEntity() {
             return Order.builder()
                     .orderProductId(this.orderProductId)
                     .quantity(this.quantity)
-                    .producerVendorId(this.producerVendorId)
                     .consumerVendorId(this.consumerVendorId)
-                    .deliveryId(this.deliveryId)
                     .build();
         }
     }
 
     @Getter
     @Builder
-    public static class OrderInfo {
-        private UUID id;
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class OrderInfo implements Serializable {
+        private UUID orderId;
         private UUID orderProductId;
         private Long quantity;
+        @JsonIgnore
         private LocalDateTime orderedAt;
         private UUID producerVendorId;
         private UUID consumerVendorId;
@@ -41,7 +43,7 @@ public class OrderDto {
 
         public static OrderInfo of(Order order) {
             return OrderInfo.builder()
-                    .id(order.getId())
+                    .orderId(order.getId())
                     .orderProductId(order.getOrderProductId())
                     .quantity(order.getQuantity())
                     .orderedAt(order.getOrderedAt())

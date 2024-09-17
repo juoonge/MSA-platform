@@ -8,7 +8,9 @@ import java.time.*;
 import java.util.*;
 
 @Getter
+@NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class RetrieveOrderRes implements Serializable {
 
     private UUID orderId;
@@ -21,7 +23,7 @@ public class RetrieveOrderRes implements Serializable {
 
     public static RetrieveOrderRes of(OrderDto.OrderInfo info) {
         return RetrieveOrderRes.builder()
-                .orderId(info.getId())
+                .orderId(info.getOrderId())
                 .orderProductId(info.getOrderProductId())
                 .quantity(info.getQuantity())
                 .orderedAt(info.getOrderedAt())
