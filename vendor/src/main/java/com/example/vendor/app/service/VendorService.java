@@ -18,40 +18,36 @@ public class VendorService {
     private final VendorStore vendorStore;
 
     @Transactional
-    public VendorInfo registerVendor(RegisterVendorCommand command) {
+    public UUID registerVendor(RegisterVendorCommand command) {
+        // 유저 검증
+        // 허브 검증
         Vendor initVendor = command.toEntity();
         Vendor vendor = vendorStore.store(initVendor);
-        return VendorInfo.of(vendor);
+        return vendor.getId();
     }
 
     @Transactional
-    public void withdrawVendor(UUID vendorId) {
+    public void removeVendor(UUID vendorId) {
         Vendor vendor = vendorReader.getVendor(vendorId);
-        vendor.withdraw();
-    }
-
-    @Transactional
-    public void changeBelongingHub(UUID vendorId, UUID belongingHubId) {
-        Vendor vendor = vendorReader.getVendor(vendorId);
-        vendor.changeBelongingHub(belongingHubId);
+        vendor.remove();
     }
 
     @Transactional(readOnly = true)
     public VendorInfo retrieveVendor(UUID vendorId) {
-        Vendor vendor = vendorReader.getVendor(vendorId);
+        Vendor vendor = vendorReader.getExistVendor(vendorId);
         return VendorInfo.of(vendor);
     }
 
     @Transactional(readOnly = true)
     public List<VendorInfo> retrieveVendorList(Pageable page) {
-        List<Vendor> vendorList = vendorReader.findVendor(page);
+        List<Vendor> vendorList = vendorReader.searchExistVendor(page);
         List<VendorInfo> vendorInfoList = vendorList.stream().map(VendorInfo::of).toList();
         return vendorInfoList;
     }
 
     @Transactional(readOnly = true)
     public VendorInfo getVendor(UUID vendorId) {
-        Vendor vendor = vendorReader.getVendor(vendorId);
+        Vendor vendor = vendorReader.getExistVendor(vendorId);
         return VendorInfo.of(vendor);
     }
 }

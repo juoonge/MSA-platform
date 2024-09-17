@@ -19,27 +19,26 @@ public class ProductController {
 
     @PostMapping("/api/products")
     public ApiResponse<RegisterProductRes> registerProduct(@RequestBody RegisterProductReq request) {
-        System.out.println(request);
-        ProductInfo productInfo = productService.registerProduct(request.toCommand());
-        return ApiResponse.success("상품 등록", RegisterProductRes.of(productInfo));
+        UUID productId = productService.registerProduct(request.toCommand());
+        return ApiResponse.success("상품 등록", new RegisterProductRes(productId));
     }
 
     @DeleteMapping("/api/products/{productId}")
     public ApiResponse removeProduct(@PathVariable("productId") UUID productId) {
         productService.removeProduct(productId);
-        return ApiResponse.success("상품 삭제", null);
+        return ApiResponse.success("상품 삭제");
     }
 
     @PatchMapping("/api/products/{productId}/stock/decrease")
     public ApiResponse decreaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
         productService.decreaseStock(productId, request.getAmount());
-        return ApiResponse.success("상품 재고 감소", null);
+        return ApiResponse.success("상품 재고 감소");
     }
 
     @PatchMapping("/api/products/{productId}/stock/increase")
     public ApiResponse increaseStock(@PathVariable("productId") UUID productId, @RequestBody ChangeProductStockReq request) {
         productService.increaseStock(productId, request.getAmount());
-        return ApiResponse.success("상품 재고 증가", null);
+        return ApiResponse.success("상품 재고 증가");
     }
 
     @GetMapping("/api/products/{productId}")
