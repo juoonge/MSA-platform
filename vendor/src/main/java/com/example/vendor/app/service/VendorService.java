@@ -1,6 +1,5 @@
 package com.example.vendor.app.service;
 
-import com.example.vendor.app.dto.*;
 import com.example.vendor.app.dto.VendorDto.*;
 import com.example.vendor.domain.model.*;
 import com.example.vendor.domain.service.*;
@@ -50,7 +49,7 @@ public class VendorService {
         return vendorInfoList;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public VendorInfo getVendor(UUID vendorId) {
         Vendor vendor = vendorReader.getVendor(vendorId);
         return VendorInfo.of(vendor);

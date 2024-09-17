@@ -1,8 +1,6 @@
 package com.example.order.infra;
 
 import com.example.order._common.*;
-import com.example.order.app.dto.*;
-import com.example.order.app.dto.OrderDto.*;
 import com.example.order.domain.model.*;
 import com.example.order.domain.repository.*;
 import com.example.order.domain.service.*;
@@ -21,12 +19,24 @@ public class OrderReaderImpl implements OrderReader {
     @Override
     public Order getOrder(UUID orderId) {
         return orderRepository.findById(orderId).orElseThrow(
-                () -> new ApiException("NOT FOUND ENTITY")
+                () -> new ApiException("NOT FOUND ORDER")
+        );
+    }
+
+    @Override
+    public Order getExistOrder(UUID orderId) {
+        return orderRepository.findByIdAndIsDeleted(orderId, false).orElseThrow(
+                () -> new ApiException("NOT FOUND ORDER")
         );
     }
 
     @Override
     public List<Order> searchOrder(Pageable page) {
         return orderRepository.findAll(page).getContent();
+    }
+
+    @Override
+    public List<Order> searchExistOrder(Pageable page) {
+        return orderRepository.findAllByIsDeleted(page, false).getContent();
     }
 }
