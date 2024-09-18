@@ -37,7 +37,7 @@ public class DeliveryPathRes {
     public static DeliveryPathRes of(DeliveryPath deliveryPath) {
         return new DeliveryPathRes(
             deliveryPath.getDeliveryPathId(),
-            deliveryPath.getDeliveryId(),
+            deliveryPath.getDelivery().getDeliveryId(),
             deliveryPath.getHubId(),
             deliveryPath.getSequenceNumber(),
             deliveryPath.getEstimatedDuration(),

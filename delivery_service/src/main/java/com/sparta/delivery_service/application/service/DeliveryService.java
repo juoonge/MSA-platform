@@ -80,8 +80,10 @@ public class DeliveryService {
 
         // 배송 경로 생성
         Delivery delivery = Delivery.createDelivery(deliveryDto);
+        Delivery savedDelivery = deliveryRepository.save(delivery);
         DeliveryPathCreateReq deliveryPathCreateReq = DeliveryPathCreateReq.builder()
-            .deliveryId(delivery.getDeliveryId())
+            .deliveryId(savedDelivery.getDeliveryId())
+            .delivery(savedDelivery)
             .hubId(startHub.getHubId())
             .sequenceNumber(endHub.getHubSequence() - startHub.getHubSequence())
             .actualDistance(actualDistance)  // AI로 계산된 거리 적용
@@ -89,7 +91,7 @@ public class DeliveryService {
 
         deliveryPathService.createDeliveryPath(deliveryPathCreateReq);
 
-        return deliveryRepository.save(delivery);
+        return deliveryRepository.save(savedDelivery);
     }
 
 

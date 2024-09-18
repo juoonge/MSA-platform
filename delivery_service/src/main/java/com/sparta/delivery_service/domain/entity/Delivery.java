@@ -3,15 +3,21 @@ package com.sparta.delivery_service.domain.entity;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryDTO;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
 import com.sparta.delivery_service.domain.enums.DeliveryStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +52,10 @@ public class Delivery extends TimeStamped implements Serializable {
     @Column
     private DeliveryStatus deliveryStatus;
 
+    // OneToMany 관계로 DeliveryPath 엔티티와 연결
+    @OneToMany(mappedBy = "delivery", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<DeliveryPath> deliveryPathList;
+
     @Column
     private String address;
 
@@ -57,7 +67,12 @@ public class Delivery extends TimeStamped implements Serializable {
             .endHubId(deliveryDto.getEndHubId())
             .deliveryStatus(DeliveryStatus.PENDING)
             .address(deliveryDto.getAddress())
+            .deliveryPathList(new ArrayList<>())
             .build();
+    }
+
+    public void addDeliveryPathList(DeliveryPath deliveryPath) {
+        this.deliveryPathList.add(deliveryPath);
     }
 
     public void updateDelivery(DeliveryUpdateRequest request) {
@@ -78,4 +93,3 @@ public class Delivery extends TimeStamped implements Serializable {
         setIsDeleted(true);
     }
 }
-
