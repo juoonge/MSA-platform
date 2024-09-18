@@ -13,6 +13,7 @@ import com.sparta.hub_service.domain.entity.HubPath;
 import com.sparta.hub_service.domain.repository.HubPathRepository;
 import com.sparta.hub_service.domain.repository.HubRepository;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,6 +75,7 @@ public class HubPathService {
 
     @Transactional
     public HubPathDTO createHubPath(HubPathDTO hubPathDTO) {
+
         Integer sequenceNumber = hubPathDTO.getSequenceNumber();
         if (sequenceNumber == 0) {
             return null;
@@ -82,6 +84,17 @@ public class HubPathService {
         Hub startHub = hubRepository.findById(hubPathDTO.getStartHubId())
             .orElseThrow(() -> new RuntimeException("시작 허브를 찾을 수 없습니다."));
         Hub endHub = calculateEndHub(startHub, sequenceNumber);
+
+        Optional<HubPath> hubPath = hubPathRepository.findByStartHubAndEndHub(startHub, endHub);
+
+        if(hubPath.isPresent()) {
+            hubPathDTO.setStartHubId(hubPath.get().getStartHub().getHubId());
+            hubPathDTO.setEndHubId(hubPath.get().getEndHub().getHubId());
+            hubPathDTO.setHubPathId(hubPath.get().getHubPathId());
+            hubPathDTO.setDuration(hubPath.get().getDuration());
+
+            return hubPathDTO;
+        }
 
         // 위도와 경도를 기반으로 소요 시간을 추측하기 위한 프롬프트 생성
         String prompt = String.format(
@@ -104,11 +117,11 @@ public class HubPathService {
         }
 
         // HubPath 생성 및 저장
-        HubPath hubPath = HubPath.create(startHub, endHub);
-        hubPath.updateDuration(estimatedDuration);
-        hubPath = hubPathRepository.save(hubPath);
+        hubPath = Optional.of(HubPath.create(startHub, endHub));
+        hubPath.get().updateDuration(estimatedDuration);
+        hubPath = Optional.of(hubPathRepository.save(hubPath.get()));
 
-        return hubPathMapper.toDto(hubPath);
+        return hubPathMapper.toDto(hubPath.get());
     }
 
 
