@@ -10,16 +10,16 @@ services:
     networks:
       - msa-network
 
-# gateway
-  gateway-service:
-    build:
-      context: ./gateway/
-      dockerfile: Dockerfile
-    container_name: gateway-service
-    ports:
-      - "8080:8080"
-    networks:
-      - gateway-network
+# # gateway
+#   gateway-service:
+#     build:
+#       context: ./gateway/
+#       dockerfile: Dockerfile
+#     container_name: gateway-service
+#     ports:
+#       - "8080:8080"
+#     networks:
+#       - gateway-network
 
 # vendor
   vendor-db:
@@ -173,6 +173,7 @@ services:
     networks:
       - "msa-network"
 
+# zipkin
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin
