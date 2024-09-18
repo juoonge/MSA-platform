@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # PostgreSQL 서비스 정의 (hub_service용)
+  postgres_hub:
+    image: postgres:14-alpine
+    container_name: hub_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hub_base
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_hub_data:/var/lib/postgresql/data
+    networks:
+      - hub_network
+
+  # PostgreSQL 서비스 정의 (delivery_service용)
+  postgres_delivery:
+    image: postgres:14-alpine
+    container_name: delivery_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: delivery_base
+    ports:
+      - "15433:5432"
+    volumes:
+      - postgres_delivery_data:/var/lib/postgresql/data
+    networks:
+      - hub_network
+
+  # Eureka 서버 정의
+  eureka-service:
+    build:
+      context: ../server  # eureka-server의 Dockerfile 위치
+    container_name: eureka-service
+    environment:
+      - EUREKA_CLIENT_REGISTER_WITH_EUREKA=false
+      - EUREKA_CLIENT_FETCH_REGISTRY=false
+    ports:
+      - "19090:19090"  # Eureka 서버 포트
+    networks:
+      - hub_network
+    restart: always
+
+  # Spring Boot 애플리케이션 정의 (hub_service)
+  hub_service:
+    build:
+      context: .  # 현재 디렉토리의 Dockerfile
+    container_name: hub_service
+    depends_on:
+      - postgres_hub
+      - eureka-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_hub:5432/hub_base
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-service:19090/eureka/
+
+    ports:
+      - "19600:19600"
+    networks:
+      - hub_network
+    restart: always
+
+  # Spring Boot 애플리케이션 정의 (delivery_service)
+  delivery_service:
+    build:
+      context: ../delivery_service  # delivery_service의 Dockerfile 위치
+    container_name: delivery_service
+    depends_on:
+      - postgres_delivery
+      - eureka-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_delivery:5432/delivery_base
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-service:19090/eureka/
+
+    ports:
+      - "19700:19700"
+    networks:
+      - hub_network
+    restart: always
+
+# 네트워크 정의
+networks:
+  hub_network:
+
+# 볼륨 정의 (PostgreSQL 데이터 영구 저장소)
+volumes:
+  postgres_hub_data:
+  postgres_delivery_data:

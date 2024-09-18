@@ -1,4 +1,4 @@
-package com.sparta.hub_service;
+package com.sparta.delivery_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @SpringBootApplication
 @EnableJpaAuditing
 @EnableFeignClients
-public class HubServiceApplication {
+public class DeliveryServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HubServiceApplication.class, args);
+		SpringApplication.run(DeliveryServiceApplication.class, args);
 	}
 
 }
