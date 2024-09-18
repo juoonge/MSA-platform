@@ -7,6 +7,7 @@ import com.sparta.delivery_service.application.dto.deliverydto.DeliveryRes;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryStatusDto;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryStatusUpdateRequest;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
+import com.sparta.delivery_service.application.mapper.DeliveryMapper;
 import com.sparta.delivery_service.application.service.DeliveryService;
 import com.sparta.delivery_service.common.response.CommonResponse;
 import com.sparta.delivery_service.domain.entity.Delivery;
@@ -36,6 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
+    private final DeliveryMapper deliveryMapper;
 
     @PostMapping
     public ResponseEntity<CommonResponse<DeliveryRes>> createDelivery(
@@ -102,13 +104,13 @@ public class DeliveryController {
     }
 
     @DeleteMapping("/{delivery_id}")
-    public ResponseEntity<CommonResponse<Void>> deleteDelivery(
+    public DeliveryDTO deleteDelivery(
         @PathVariable UUID delivery_id
         //,@RequestHeader("Authorization") String token
     ) {
 
-        deliveryService.deleteDelivery(delivery_id);
-        return ResponseEntity.ok(CommonResponse.success(null));
+        Delivery delivery = deliveryService.deleteDelivery(delivery_id);
+        return deliveryMapper.toDto(delivery);
     }
 
 }

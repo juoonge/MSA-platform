@@ -11,6 +11,7 @@ import com.sparta.delivery_service.common.exception.ErrorCase;
 import com.sparta.delivery_service.common.exception.GlobalException;
 import com.sparta.delivery_service.config.GeminiApiClientConfig;
 import com.sparta.delivery_service.domain.entity.Delivery;
+import com.sparta.delivery_service.domain.entity.DeliveryPath;
 import com.sparta.delivery_service.domain.enums.DeliveryStatus;
 import com.sparta.delivery_service.domain.repository.DeliveryRepository;
 import com.sparta.delivery_service.infrastructure.HubService;
@@ -143,13 +144,19 @@ public class DeliveryService {
     * 주문 측에서 삭제함
      */
     @Transactional
-    public void deleteDelivery(UUID deliveryId) {
+    public Delivery deleteDelivery(UUID deliveryId) {
+        // Delivery 찾기
         Delivery delivery = deliveryRepository.findByDeliveryIdAndIsDeletedFalse(deliveryId)
             .orElseThrow(() -> new GlobalException(ErrorCase.NOT_FOUND));
 
+        // 관련된 DeliveryPath 삭제 처리
+        delivery.getDeliveryPathList().forEach(DeliveryPath::deleteDeliveryPath);
+
+        // Delivery 삭제 처리
         delivery.deleteDelivery();
-        deliveryRepository.save(delivery);
+        return deliveryRepository.save(delivery);
     }
+
     /*
     *
     * 마스터와 배송원 자신의 배달 확인
