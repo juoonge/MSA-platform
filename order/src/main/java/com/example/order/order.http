@@ -3,9 +3,9 @@ POST http://localhost:19300/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "e468f9fb-99b0-42ae-9bf8-39d6d888f085",
+  "orderProductId": "48f0e960-6ac7-4899-91ac-99625eec60f8",
   "quantity": 5,
-  "consumerVendorId": "3dc2912a-9655-4a3a-93c0-6436f6e78e54"
+  "consumerVendorId": "f2895a27-cc76-44c0-943a-2e84540693c5"
 }
 
 ### 주문 취소

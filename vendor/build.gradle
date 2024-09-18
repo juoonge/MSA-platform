@@ -46,6 +46,7 @@ dependencies {
     implementation 'io.github.openfeign:feign-micrometer'
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
     implementation 'io.github.openfeign:feign-okhttp:13.3'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 }
 
 dependencyManagement {

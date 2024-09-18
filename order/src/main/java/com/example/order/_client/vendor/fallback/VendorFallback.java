@@ -10,7 +10,7 @@ public class VendorFallback implements VendorFeignClient {
 
     @Override
     public VendorInfo getVendor(UUID vendorId) {
-        return null;
+        return new VendorInfo();
     }
 
 }
