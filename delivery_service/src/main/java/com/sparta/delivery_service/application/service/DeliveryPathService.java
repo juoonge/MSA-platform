@@ -6,8 +6,10 @@ import com.sparta.delivery_service.application.dto.deliverypathdto.DeliveryPathU
 import com.sparta.delivery_service.application.dto.hubdto.HubPathDTO;
 import com.sparta.delivery_service.common.exception.ErrorCase;
 import com.sparta.delivery_service.common.exception.GlobalException;
+import com.sparta.delivery_service.domain.entity.Delivery;
 import com.sparta.delivery_service.domain.entity.DeliveryPath;
 import com.sparta.delivery_service.domain.repository.DeliveryPathRepository;
+import com.sparta.delivery_service.domain.repository.DeliveryRepository;
 import com.sparta.delivery_service.infrastructure.HubService;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +23,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class DeliveryPathService {
 
     private final DeliveryPathRepository deliveryPathRepository;
+    private final DeliveryRepository deliveryRepository;
     private final HubService hubService;
     // 배송 경로 생성
     @Transactional
     public DeliveryPathRes createDeliveryPath(DeliveryPathCreateReq request) {
         DeliveryPath deliveryPath = DeliveryPath.createDeliveryPath(request);
+        Delivery delivery = deliveryRepository.findById(request.getDeliveryId())
+            .orElseThrow(()->new GlobalException(ErrorCase.DELIVERY_NOT_FOUND));
+
 
         HubPathDTO hubPathDTO = new HubPathDTO(deliveryPath.getSequenceNumber(), request.getHubId());
         HubPathDTO createdHubPathDTO = hubService.CreateHubPath(hubPathDTO);
@@ -33,6 +39,8 @@ public class DeliveryPathService {
         deliveryPath.setEstimatedDuration(createdHubPathDTO.getDuration());
 
         deliveryPathRepository.save(deliveryPath);
+        delivery.addDeliveryPathList(deliveryPath);
+        deliveryRepository.save(delivery);
         return DeliveryPathRes.of(deliveryPath);
     }
 

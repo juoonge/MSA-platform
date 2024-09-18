@@ -1,5 +1,6 @@
 package com.sparta.delivery_service.application.dto.deliverypathdto;
 
+import com.sparta.delivery_service.domain.entity.Delivery;
 import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -27,4 +28,6 @@ public class DeliveryPathCreateReq {
     private Double actualDistance;
 
     private BigDecimal actualDuration;
+
+    private Delivery delivery;
 }
