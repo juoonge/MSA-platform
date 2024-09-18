@@ -3,13 +3,13 @@ POST http://localhost:19300/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "c532bab6-19e4-4e66-bd41-8cc3469b3651",
+  "orderProductId": "b99f4116-c243-4dfb-8a01-766079abef1c",
   "quantity": 4,
-  "consumerVendorId": "e9cb3865-69e0-44cc-bb0e-ec12191057a3"
+  "consumerVendorId": "980bb7ca-24a5-4562-8c3d-43b18f1e7447"
 }
 
 ### 주문 취소
-PATCH http://localhost:19300/api/orders/9d66b98d-5a62-4aec-be05-d2cc8cd57ef7/cancel
+PATCH http://localhost:19300/api/orders/70fe8d6c-9506-4053-9ef4-36b2f645e0d2/cancel
 
 ### 주문 삭제
 DELETE http://localhost:19300/api/orders/9d66b98d-5a62-4aec-be05-d2cc8cd57ef7

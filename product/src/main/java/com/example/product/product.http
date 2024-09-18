@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "name": "product A",
-  "stock": 1000,
-  "producerVendorId": "e9cb3865-69e0-44cc-bb0e-ec12191057a3",
+  "stock": 10000,
+  "producerVendorId": "6ec9008b-cdf0-4488-a1a1-2cb72d888459",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
