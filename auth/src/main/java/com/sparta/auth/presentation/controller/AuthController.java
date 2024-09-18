@@ -80,7 +80,7 @@ public class AuthController {
     }
 
     @GetMapping("/internal/auth/{user_id}")
-    public User getUser(@PathVariable UUID user_id){
-        return authService.getUser(user_id);
+    public UserResponse getUser(@PathVariable UUID user_id){
+        return UserResponse.fromEntity(authService.getUser(user_id));
     }
 }
