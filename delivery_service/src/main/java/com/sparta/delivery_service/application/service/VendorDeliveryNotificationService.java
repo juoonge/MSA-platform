@@ -48,7 +48,7 @@ public class VendorDeliveryNotificationService {
     private final UserServiceFeignClient userServiceFeignClient;
     private final DeliveryRepository deliveryRepository;
 
-    @Scheduled(cron = "0 * * * * *") // 1분마다 실행
+    @Scheduled(cron = "0 0 6 * * *") // 1분마다 실행
     public void notifyWeatherAndDeliveryInfo() {
         // 날씨 정보 가져오기
         String weatherData = getWeatherData();
