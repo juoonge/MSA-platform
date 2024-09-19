@@ -36,13 +36,13 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable) // CSRF 비활성화
-//                .addFilterAt(jwtAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC)
+                .addFilterAt(jwtAuthenticationFilter(), SecurityWebFiltersOrder.HTTP_BASIC)
                 ;
 
         return http.build();
     }
 
-//    @Bean
+    @Bean
     public WebFilter jwtAuthenticationFilter() {
         // 게이트웨이 jwt 인증 처리 필터
         return (exchange, chain) -> {

@@ -24,8 +24,10 @@ public class ProductService {
     private final VendorService vendorService;
     private final HubService hubService;
 
+    // 캐싱 실패...!
+//    @CachePut(cacheNames = "productCache", key = "#result.id")
     @Transactional
-    public UUID registerProduct(RegisterProductCommand command) {
+    public ProductInfo registerProduct(RegisterProductCommand command) {
         VendorInfo producerVendor = vendorService.getVendor(command.getProducerVendorId());
         if (producerVendor == null) {
             throw new ApiException("VENDOR SERVICE ERROR");
@@ -36,38 +38,50 @@ public class ProductService {
         }
         Product intitProduct = command.toEntity();
         Product product = productStore.store(intitProduct);
-        return product.getId();
+        return ProductInfo.of(product);
     }
 
+    //    @CacheEvict(cacheNames = "args[0]", allEntries = true)
     @Transactional
     public void removeProduct(UUID productId) {
         Product product = productReader.getProduct(productId);
         product.remove();
     }
 
+    //    @CachePut(cacheNames = "productCache", key = "args[0]")
+//    @CacheEvict(cacheNames = "productListCache", allEntries = true)
     @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 50, backoff = @Backoff(delay = 100))
     @Transactional
-    public void decreaseStock(UUID productId, Long amount) {
+    public ProductInfo decreaseStock(UUID productId, Long amount) {
         Product product = productReader.getExistProductWithLock(productId);
         if (product.getStock() < amount) {
             throw new ApiException("NOT ENOUGH STOCK");
         }
         product.decreaseStock(amount);
+        return ProductInfo.of(product);
     }
 
+    //    @CachePut(cacheNames = "productCache", key = "args[0]")
+//    @CacheEvict(cacheNames = "productListCache", allEntries = true)
     @Retryable(value = OptimisticLockingFailureException.class, maxAttempts = 50, backoff = @Backoff(delay = 100))
     @Transactional
-    public void increaseStock(UUID productId, Long amount) {
+    public ProductInfo increaseStock(UUID productId, Long amount) {
         Product product = productReader.getExistProductWithLock(productId);
         product.increaseStock(amount);
+        return ProductInfo.of(product);
     }
 
+    //    @Cacheable(cacheNames = "productCache", key = "args[0]")
     @Transactional(readOnly = true)
     public ProductInfo retrieveProduct(UUID productId) {
         Product product = productReader.getExistProduct(productId);
         return ProductInfo.of(product);
     }
 
+    //    @Cacheable(
+//            cacheNames = "productListCache",
+//            key = "{ args[0], args[1].pageNumber, args[1].pageSize }"
+//    )
     @Transactional(readOnly = true)
     public List<ProductInfo> retrieveProductList(Pageable page) {
         List<Product> productList = productReader.searchExistProduct(page);
@@ -75,6 +89,7 @@ public class ProductService {
         return productInfoList;
     }
 
+    //    @Cacheable(cacheNames = "productCache", key = "args[0]")
     @Transactional(readOnly = true)
     public ProductInfo getProduct(UUID productId) {
         Product product = productReader.getExistProduct(productId);

@@ -3,8 +3,10 @@ package com.example.product.app.dto;
 import com.example.product.domain.model.*;
 import lombok.*;
 
+import java.io.*;
 import java.util.*;
 
+@Getter
 public class ProductDto {
 
     @Getter
@@ -30,7 +32,7 @@ public class ProductDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ProductInfo {
+    public static class ProductInfo implements Serializable {
 
         private UUID id;
         private String name;

@@ -52,7 +52,7 @@ Content-Type: application/json
 }
 
 ### 상품 단건 조회
-GET http://localhost:8080/api/products/45da4c48-6456-437e-b954-cfcbbfba465e
+GET http://localhost:8080/api/products/020910a3-c33b-4742-bdc9-0abd29f757ab
 
 ### 상품 목록 조회
 GET http://localhost:8080/api/products
