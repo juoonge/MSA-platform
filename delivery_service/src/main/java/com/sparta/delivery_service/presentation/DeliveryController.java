@@ -103,7 +103,7 @@ public class DeliveryController {
         return ResponseEntity.ok(CommonResponse.success(updatedAddress));
     }
 
-    @DeleteMapping("/{delivery_id}")
+    @DeleteMapping("/internal/{delivery_id}")
     public DeliveryDTO deleteDelivery(
         @PathVariable UUID delivery_id
         //,@RequestHeader("Authorization") String token
