@@ -19,7 +19,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - gateway-network
+      - msa-network
 
 # vendor
   vendor-db:
@@ -32,6 +32,8 @@ services:
       MYSQL_PASSWORD: 9999
     ports:
       - "13306:3306"
+    volumes:
+      - vendor-data:/var/lib/mysql
     networks:
       - vendor-network
 
@@ -65,6 +67,8 @@ services:
       MYSQL_PASSWORD: 9999
     ports:
       - "23306:3306"
+    volumes:
+      - product-data:/var/lib/mysql
     networks:
       - product-network
 
@@ -98,6 +102,8 @@ services:
       MYSQL_PASSWORD: 9999
     ports:
       - "33306:3306"
+    volumes:
+      - order-data:/var/lib/mysql
     networks:
       - order-network
 
@@ -173,6 +179,32 @@ services:
     networks:
       - "msa-network"
 
+# prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - "msa-network"
+
+# grafana
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: always
+    networks:
+      - "msa-network"
+
+# zipkin
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin
@@ -191,3 +223,14 @@ networks:
     driver: bridge
   order-network:
     driver: bridge
+
+# volumes
+volumes:
+  grafana-data:
+    driver: local
+  vendor-data:
+    driver: local
+  product-data:
+    driver: local
+  order-data:
+    driver: local

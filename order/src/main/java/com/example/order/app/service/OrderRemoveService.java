@@ -10,7 +10,7 @@ import java.util.*;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService {
+public class OrderRemoveService {
 
     private final OrderReader orderReader;
 

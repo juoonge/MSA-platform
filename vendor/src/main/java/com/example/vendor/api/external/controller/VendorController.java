@@ -1,15 +1,17 @@
 package com.example.vendor.api.external.controller;
 
-import com.example.vendor._common.*;
-import com.example.vendor.api.external.request.*;
-import com.example.vendor.api.external.response.*;
-import com.example.vendor.app.dto.VendorDto.*;
-import com.example.vendor.app.service.*;
-import lombok.*;
-import org.springframework.data.domain.*;
+import com.example.vendor._common.ApiResponse;
+import com.example.vendor.api.external.request.RegisterVendorReq;
+import com.example.vendor.api.external.response.RegisterVendorRes;
+import com.example.vendor.api.external.response.RetrieveVendorRes;
+import com.example.vendor.app.dto.VendorDto.VendorInfo;
+import com.example.vendor.app.service.VendorService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,6 +41,6 @@ public class VendorController {
     public ApiResponse<List<RetrieveVendorRes>> retrieveVendorList(Pageable page) {
         List<VendorInfo> infoList = vendorService.retrieveVendorList(page);
         List<RetrieveVendorRes> res = infoList.stream().map(RetrieveVendorRes::of).toList();
-        return ApiResponse.success("업체 단건 조회", res);
+        return ApiResponse.success("업체 목록 조회", res);
     }
 }

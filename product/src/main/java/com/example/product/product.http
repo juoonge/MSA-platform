@@ -4,8 +4,8 @@ Content-Type: application/json
 
 {
   "name": "product A",
-  "stock": 1000,
-  "producerVendorId": "e9cb3865-69e0-44cc-bb0e-ec12191057a3",
+  "stock": 1000000,
+  "producerVendorId": "f2895a27-cc76-44c0-943a-2e84540693c5",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
@@ -17,7 +17,7 @@ PATCH http://localhost:19200/api/products/45da4c48-6456-437e-b954-cfcbbfba465e/s
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 재고 증가
@@ -25,7 +25,7 @@ PATCH http://localhost:19200/api/products/45da4c48-6456-437e-b954-cfcbbfba465e/s
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 단건 조회
@@ -39,7 +39,7 @@ POST http://localhost:19200/api/internal/products/1c0ea43d-f504-4d85-84dd-ac7ca7
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 재고 증가 내부
@@ -47,5 +47,5 @@ POST http://localhost:19200/api/internal/products/1c0ea43d-f504-4d85-84dd-ac7ca7
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }

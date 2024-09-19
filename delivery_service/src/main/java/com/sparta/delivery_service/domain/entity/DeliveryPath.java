@@ -7,9 +7,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -31,9 +34,6 @@ public class DeliveryPath extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID deliveryPathId;
-
-    @Column
-    private UUID deliveryId;
 
     @Column
     private UUID hubId;
@@ -60,13 +60,19 @@ public class DeliveryPath extends TimeStamped {
     @Column
     private Integer hubCount;
 
+    // ManyToOne 관계로 Delivery 엔티티와 연결
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
     public static DeliveryPath createDeliveryPath(DeliveryPathCreateReq deliveryPathRes) {
         return DeliveryPath.builder()
-            .deliveryId(deliveryPathRes.getDeliveryId())
+            .delivery(deliveryPathRes.getDelivery())  // Delivery 객체를 추가
             .hubId(deliveryPathRes.getHubId())
             .sequenceNumber(deliveryPathRes.getSequenceNumber())
             .estimatedDuration(deliveryPathRes.getEstimatedDuration())
             .actualDistance(deliveryPathRes.getActualDistance())
+            .delivery(deliveryPathRes.getDelivery())
             .build();
     }
 
