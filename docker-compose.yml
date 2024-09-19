@@ -191,6 +191,70 @@ services:
       - msa-network
       - slack-network
 
+  # hub
+  hub-db:
+    image: postgres:latest
+    container_name: hub-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: hub_base
+    ports:
+      - "35432:5432"
+    networks:
+      - hub-network
+
+  hub-service:
+    build:
+      context: ./hub_service/
+      dockerfile: Dockerfile
+    container_name: hub-service
+    ports:
+      - "19600:19600"
+    depends_on:
+      - eureka-service
+      - hub-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://hub-db:5432/hub_base
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    restart: always
+    networks:
+      - msa-network
+      - hub-network
+
+  # delivery
+  delivery-db:
+    image: postgres:latest
+    container_name: delivery-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: delivery_base
+    ports:
+      - "45432:5432"
+    networks:
+      - delivery-network
+
+  delivery-service:
+    build:
+      context: ./delivery_service/
+      dockerfile: Dockerfile
+    container_name: delivery-service
+    ports:
+      - "19700:19700"
+    depends_on:
+      - eureka-service
+      - delivery-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://delivery-db:5432/delivery_base
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    restart: always
+    networks:
+      - msa-network
+      - delivery-network
+
   # redis
   redis:
     image: redis:latest
@@ -294,6 +358,11 @@ networks:
     driver: bridge
   slack-network:
     driver: bridge
+  delivery-network:
+    driver: bridge
+  hub-network:
+    driver: bridge
+
 
 # volumes
 volumes:
