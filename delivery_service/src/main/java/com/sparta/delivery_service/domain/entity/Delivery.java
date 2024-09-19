@@ -3,6 +3,7 @@ package com.sparta.delivery_service.domain.entity;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryDTO;
 import com.sparta.delivery_service.application.dto.deliverydto.DeliveryUpdateRequest;
 import com.sparta.delivery_service.domain.enums.DeliveryStatus;
+import com.sparta.delivery_service.domain.enums.UserRole;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -58,6 +59,12 @@ public class Delivery extends TimeStamped implements Serializable {
 
     @Column
     private String address;
+
+    @Column
+    private UUID userId;
+
+    @Column
+    private UserRole userRole;
 
     public static Delivery createDelivery(DeliveryDTO deliveryDto) {
         return Delivery.builder()
