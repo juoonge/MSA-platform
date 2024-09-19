@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: eureka-service
+
+server:
+  port: 8761
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  instance:
+    hostname: localhost
+
+#management:
+#  zipkin:
+#    tracing:
+#      endpoint: "http://zipkin:9411/api/v2/spans"
+#
+#  tracing:
+#    sampling:
+#      probability: 1.0
+#
+#  endpoints:
+#    web:
+#      exposure:
+#        include: actuator, prometheus
+#
+#  endpoint:
+#    health:
+#      show-details: always
+#    prometheus:
+#      enabled: true

@@ -24,6 +24,7 @@ public class OrderEventService {
     }
 
     // todo
+    @Transactional
     @KafkaListener(topics = "delivery-error", groupId = "order")
     public void deliveryReRegister(String deliveryErrorInfo) {
         DeliveryErrorEvent deliveryError = EventSerializer.deserialize(deliveryErrorInfo, DeliveryErrorEvent.class);

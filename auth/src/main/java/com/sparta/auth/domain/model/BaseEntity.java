@@ -23,7 +23,7 @@ import java.util.UUID;
 @Slf4j
 public abstract class BaseEntity {
     @CreatedDate
-    @Column(updatable = false, columnDefinition = "TIMESTAMP", nullable = false)
+    @Column(updatable = false)
     @Comment("생성일시")
     private LocalDateTime createdAt;
 

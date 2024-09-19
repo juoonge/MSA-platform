@@ -33,6 +33,7 @@ public class VendorDto {
         }
     }
 
+    @Getter
     @Builder
     public static class RegisterVendorCommand {
 

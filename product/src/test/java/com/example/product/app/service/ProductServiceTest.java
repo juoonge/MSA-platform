@@ -23,7 +23,7 @@ class ProductServiceTest {
                 .belongingHubId(UUID.fromString("45da4c48-6456-437e-b954-cfcbbfba465e"))
                 .producerVendorId(UUID.fromString("45da4c48-6456-437e-b954-cfcbbfba465e"))
                 .build();
-        UUID productId = productService.registerProduct(command);
+        ProductInfo productInfo = productService.registerProduct(command);
 
         int threadCount = 1000;
         ExecutorService executorService = Executors.newFixedThreadPool(30);
@@ -33,7 +33,7 @@ class ProductServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executorService.submit(() -> {
                 try {
-                    productService.decreaseStock(productId, 5L);
+                    productService.decreaseStock(productInfo.getId(), 5L);
                 } finally {
                     latch.countDown();
                 }
@@ -42,7 +42,7 @@ class ProductServiceTest {
         latch.await();
 
         // then
-        ProductInfo product = productService.getProduct(productId);
+        ProductInfo product = productService.getProduct(productInfo.getId());
         Assertions.assertEquals(5000L, product.getStock());
     }
 }

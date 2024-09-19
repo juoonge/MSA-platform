@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: prod
   data:
     redis:
       host: localhost
@@ -21,6 +23,18 @@ spring:
           uri: lb://slack-service
           predicates:
             - Path=/api/slacks/**
+        - id: vendor-service
+          uri: lb://vendor-service
+          predicates:
+            - Path=/api/vendors/**
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**
 
 jwt:
   secret:

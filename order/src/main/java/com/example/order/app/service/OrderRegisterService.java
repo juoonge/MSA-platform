@@ -24,7 +24,13 @@ public class OrderRegisterService {
     @Transactional
     public UUID registerOrder(RegisterOrderCommand command) {
         VendorInfo consumerVendor = vendorService.getVendor(command.getConsumerVendorId());
+        if (consumerVendor == null) {
+            throw new ApiException("VENDOR SERVICE ERROR");
+        }
         ProductInfo orderProduct = productService.getProduct(command.getOrderProductId());
+        if (orderProduct == null) {
+            throw new ApiException("PRODUCT SERVICE ERROR");
+        }
         productService.decreaseStock(orderProduct.getId(), new ChangeStockReq(command.getQuantity()));
         Order order;
         try {
