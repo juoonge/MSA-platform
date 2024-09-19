@@ -1,5 +1,5 @@
 services:
-# eureka
+  # eureka
   eureka-service:
     build:
       context: ./server/
@@ -10,7 +10,7 @@ services:
     networks:
       - msa-network
 
-# gateway
+  # gateway
   gateway-service:
     build:
       context: ./gateway/
@@ -21,7 +21,7 @@ services:
     networks:
       - msa-network
 
-# vendor
+  # vendor
   vendor-db:
     image: mysql:latest
     container_name: vendor-db
@@ -56,7 +56,7 @@ services:
       - msa-network
       - vendor-network
 
-# product
+  # product
   product-db:
     image: mysql:latest
     container_name: product-db
@@ -91,7 +91,7 @@ services:
       - msa-network
       - product-network
 
-# order
+  # order
   order-db:
     image: mysql:latest
     container_name: order-db
@@ -126,7 +126,71 @@ services:
       - msa-network
       - order-network
 
-# redis
+  # auth
+  auth-db:
+    image: postgres:latest
+    container_name: auth-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: auth
+    ports:
+      - "15432:5432"
+    networks:
+      - auth-network
+
+  auth-service:
+    build:
+      context: ./auth/
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "19400:19400"
+    depends_on:
+      - eureka-service
+      - auth-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/auth
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    restart: always
+    networks:
+      - msa-network
+      - auth-network
+
+  # slack
+  slack-db:
+    image: postgres:latest
+    container_name: slack-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: slack
+    ports:
+      - "25432:5432"
+    networks:
+      - slack-network
+
+  slack-service:
+    build:
+      context: ./slack/
+      dockerfile: Dockerfile
+    container_name: slack-service
+    ports:
+      - "19500:19500"
+    depends_on:
+      - eureka-service
+      - slack-db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://slack-db:5432/slack
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+    restart: always
+    networks:
+      - msa-network
+      - slack-network
+
+  # redis
   redis:
     image: redis:latest
     container_name: redis
@@ -135,7 +199,7 @@ services:
     networks:
       - "msa-network"
 
-# kafka
+  # kafka
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     container_name: zookeeper
@@ -179,7 +243,7 @@ services:
     networks:
       - "msa-network"
 
-# prometheus
+  # prometheus
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -190,7 +254,7 @@ services:
     networks:
       - "msa-network"
 
-# grafana
+  # grafana
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -204,7 +268,7 @@ services:
     networks:
       - "msa-network"
 
-# zipkin
+  # zipkin
   zipkin:
     image: openzipkin/zipkin:latest
     container_name: zipkin
@@ -217,11 +281,17 @@ services:
 networks:
   msa-network:
     driver: bridge
+  gateway-network:
+    driver: bridge
   vendor-network:
     driver: bridge
   product-network:
     driver: bridge
   order-network:
+    driver: bridge
+  auth-network:
+    driver: bridge
+  slack-network:
     driver: bridge
 
 # volumes
