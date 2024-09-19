@@ -82,6 +82,7 @@ services:
     depends_on:
       - eureka-service
       - product-db
+      - redis
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://product-db:3306/sparta-product
       SPRING_DATASOURCE_USERNAME: product

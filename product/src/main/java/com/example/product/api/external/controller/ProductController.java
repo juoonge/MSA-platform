@@ -19,8 +19,8 @@ public class ProductController {
 
     @PostMapping("/api/products")
     public ApiResponse<RegisterProductRes> registerProduct(@RequestBody RegisterProductReq request) {
-        UUID productId = productService.registerProduct(request.toCommand());
-        return ApiResponse.success("상품 등록", new RegisterProductRes(productId));
+        ProductInfo productInfo = productService.registerProduct(request.toCommand());
+        return ApiResponse.success("상품 등록", new RegisterProductRes(productInfo.getId()));
     }
 
     @DeleteMapping("/api/products/{productId}")

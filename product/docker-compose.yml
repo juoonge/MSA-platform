@@ -19,8 +19,16 @@ services:
       - "19200:8080"
     depends_on:
       - product-db
+      - redis
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://product-db:3306/sparta-product
       SPRING_DATASOURCE_USERNAME: product
       SPRING_DATASOURCE_PASSWORD: 9999
     restart: always
+
+    # redis
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
