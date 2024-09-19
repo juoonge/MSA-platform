@@ -28,7 +28,7 @@ Content-Type: application/json
 {
   "name": "product A",
   "stock": 1000000,
-  "producerVendorId": "14a2c3e4-4963-437a-bd56-5845ae881254",
+  "producerVendorId": "92da173d-351d-4c2f-8b2c-d1b138f38ad8",
   "belongingHubId": "123e4567-e89b-12d3-a456-426614174000"
 }
 
@@ -63,9 +63,9 @@ POST http://localhost:8080/api/orders
 Content-Type: application/json
 
 {
-  "orderProductId": "8207201d-67c2-4189-88ba-9d87587a3fbc",
+  "orderProductId": "992cceff-d039-472f-9d1d-233c7715a2f8",
   "quantity": 5,
-  "consumerVendorId": "14a2c3e4-4963-437a-bd56-5845ae881254"
+  "consumerVendorId": "92da173d-351d-4c2f-8b2c-d1b138f38ad8"
 }
 
 ### 주문 취소
