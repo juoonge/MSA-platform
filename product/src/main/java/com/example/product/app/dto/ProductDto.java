@@ -7,8 +7,6 @@ import java.io.*;
 import java.util.*;
 
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class ProductDto {
 
     @Getter
