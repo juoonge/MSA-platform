@@ -16,9 +16,9 @@ import java.util.*;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderService orderService;
     private final OrderRegisterService orderRegisterService;
     private final OrderCancelService orderCancelService;
+    private final OrderRemoveService orderRemoveService;
     private final OrderRetrieveService orderRetrieveService;
     private final KafkaUtils kafkaUtils;
 
@@ -41,7 +41,7 @@ public class OrderController {
 
     @DeleteMapping("/api/orders/{orderId}")
     public ApiResponse removeOrder(@PathVariable("orderId") UUID orderId) {
-        orderService.removeOrder(orderId);
+        orderRemoveService.removeOrder(orderId);
         return ApiResponse.success("주문 삭제");
     }
 

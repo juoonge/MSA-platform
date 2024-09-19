@@ -17,7 +17,7 @@ PATCH http://localhost:19200/api/products/45da4c48-6456-437e-b954-cfcbbfba465e/s
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 재고 증가
@@ -25,7 +25,7 @@ PATCH http://localhost:19200/api/products/45da4c48-6456-437e-b954-cfcbbfba465e/s
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 단건 조회
@@ -39,7 +39,7 @@ POST http://localhost:19200/api/internal/products/1c0ea43d-f504-4d85-84dd-ac7ca7
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }
 
 ### 상품 재고 증가 내부
@@ -47,5 +47,5 @@ POST http://localhost:19200/api/internal/products/1c0ea43d-f504-4d85-84dd-ac7ca7
 Content-Type: application/json
 
 {
-  "amount": 3
+  "amount": 5
 }

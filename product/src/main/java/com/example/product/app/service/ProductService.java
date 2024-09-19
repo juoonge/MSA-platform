@@ -1,5 +1,6 @@
 package com.example.product.app.service;
 
+import com.example.product._client.hub.*;
 import com.example.product._client.vendor.*;
 import com.example.product._common.*;
 import com.example.product.app.dto.ProductDto.*;
@@ -21,11 +22,18 @@ public class ProductService {
     private final ProductReader productReader;
     private final ProductStore productStore;
     private final VendorService vendorService;
+    private final HubService hubService;
 
     @Transactional
     public UUID registerProduct(RegisterProductCommand command) {
-        // vendorService.getVendor(command.getProducerVendorId());
-        // hub 존재 확인
+        VendorInfo producerVendor = vendorService.getVendor(command.getProducerVendorId());
+        if (producerVendor == null) {
+            throw new ApiException("VENDOR SERVICE ERROR");
+        }
+        HubInfo belongingHub = hubService.getHub(command.getBelongingHubId());
+        if (belongingHub == null) {
+            throw new ApiException("HUB SERVICE ERROR");
+        }
         Product intitProduct = command.toEntity();
         Product product = productStore.store(intitProduct);
         return product.getId();
